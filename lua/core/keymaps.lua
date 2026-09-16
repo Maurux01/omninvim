@@ -37,11 +37,13 @@ vim.keymap.set("n", "<leader>th", function()
       end,
     }),
     sorter = require("telescope.config").values.generic_sorter({}),
-    attach_mappings = function(prompt_bufnr, map)
-      map("i", "<CR>", function()
+    attach_mappings = function(prompt_bufnr)
+      require("telescope.actions").select_default:replace(function()
         local selection = require("telescope.actions.state").get_selected_entry()
         require("telescope.actions").close(prompt_bufnr)
-        vim.cmd(selection.value.cmd)
+        if selection then
+          vim.cmd(selection.value.cmd)
+        end
       end)
       return true
     end,

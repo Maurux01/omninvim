@@ -1,6 +1,13 @@
 return {
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = function() require("catppuccin").setup({ flavour =
-    "frappe", transparent_background = true }) end },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({ flavour = "frappe", transparent_background = true })
+      vim.cmd.colorscheme("catppuccin")
+    end,
+  },
   { "rose-pine/neovim", name = "rose-pine", priority = 1000, config = function() require("rose-pine").setup({ variant =
     "moon" }) end },
   { "folke/tokyonight.nvim", priority = 1000, config = function() require("tokyonight").setup({ style = "night", transparent = true }) end },
