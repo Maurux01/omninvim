@@ -140,6 +140,9 @@ install_missing_system_packages() {
     queue_missing wget wget wget wget
     queue_missing psql postgresql-libs postgresql-client postgresql
     queue_missing gh github-cli gh gh
+    queue_missing java jdk-openjdk default-jdk java-latest-openjdk-devel
+    queue_missing mvn maven maven maven
+    queue_missing gradle gradle gradle gradle
 
     local missing=()
     case "$OS" in
@@ -368,7 +371,7 @@ install_language_servers() {
     echo ""
     echo "Installing language servers via Mason..."
 
-    local pkgs=(vtsls tailwindcss-language-server html-lsp emmet-language-server css-lsp pyright lua-language-server bash-language-server)
+    local pkgs=(vtsls tailwindcss-language-server html-lsp emmet-language-server css-lsp pyright lua-language-server bash-language-server jdtls java-test java-debug-adapter google-java-format)
     local all_there=1
     for p in "${pkgs[@]}"; do
         if [ ! -d "$DATA_DIR/mason/packages/$p" ] && [ ! -d "$HOME/.local/share/nvim/mason/packages/$p" ]; then
@@ -402,7 +405,7 @@ verify_installation() {
     local failed=0
 
     echo "System tools:"
-    for cmd in gcc g++ make node npm python3 git rg fd jq unzip curl tar wget psql gh; do
+    for cmd in gcc g++ make node npm python3 git rg fd jq unzip curl tar wget psql gh java mvn gradle; do
         if command -v "$cmd" >/dev/null 2>&1; then
             echo "  ✓ $cmd"
         else
@@ -417,7 +420,7 @@ verify_installation() {
 
     echo ""
     echo "Neovim config files:"
-    for file in init.lua lua/core/options.lua lua/core/keymaps.lua lua/core/treesitter.lua lua/plugins/dashboard.lua lua/plugins/lsp.lua lua/plugins/ui.lua lua/plugins/workflow.lua lua/plugins/git.lua lua/plugins/explorer.lua lua/plugins/preview.lua lua/plugins/editing.lua; do
+    for file in init.lua lua/core/options.lua lua/core/keymaps.lua lua/core/treesitter.lua lua/plugins/dashboard.lua lua/plugins/lsp.lua lua/plugins/java.lua lua/plugins/ui.lua lua/plugins/workflow.lua lua/plugins/git.lua lua/plugins/explorer.lua lua/plugins/preview.lua lua/plugins/editing.lua; do
         if [ -f "$CONFIG_DIR/$file" ]; then
             echo "  ✓ $file ($(wc -l < "$CONFIG_DIR/$file") lines)"
         else

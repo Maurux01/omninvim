@@ -29,6 +29,7 @@ lua/core/treesitter.lua  Parser list + setup (0.11 / 0.12 API)
 lua/plugins/dashboard.lua  alpha-nvim start screen (centered OMNI banner)
 lua/plugins/ui.lua       Themes, lualine, bufferline, notify, noice, zen
 lua/plugins/lsp.lua      Treesitter, Mason, blink.cmp, lspconfig, Java
+lua/plugins/java.lua     Java: mason-tool-installer (jdtls/test/debug/format), nvim-dap + UI, conform
 lua/plugins/workflow.lua Telescope, Trouble, Flash, Harpoon, Oil, Yanky
 lua/plugins/git.lua      gitsigns, rayso.nvim (screenshots sin freeze CLI)
 lua/plugins/explorer.lua nvim-tree (right side, sigue el buffer activo)
@@ -243,6 +244,8 @@ Select with `<CR>`, cancel with `<Esc>`. The choice lasts for the session; to ch
 | `lua_ls` | Lua |
 | `bashls` | Bash / Shell |
 | `jdtls` | Java (via nvim-java, filetype only) |
+| `java-test` / `java-debug-adapter` | Java test + debug (via nvim-dap, `<leader>db/dc/do/di`) |
+| `google-java-format` | Java format (via conform.nvim, format on save) |
 
 ## Requirements
 
