@@ -11,7 +11,12 @@ return {
     config = function()
       local function on_attach(bufnr)
         local api = require("nvim-tree.api")
-        api.config.mappings.default_on_attach(bufnr)
+        -- API vigente: api.config.mappings.default_on_attach fue renombrado a api.map.on_attach.default
+        if api.map and api.map.on_attach and api.map.on_attach.default then
+          api.map.on_attach.default(bufnr)
+        else
+          api.config.mappings.default_on_attach(bufnr)
+        end
 
         -- Vuelve a la ventana/buffer anterior SIN cerrar el tree.
         local function back_to_prev_buf()
@@ -54,7 +59,6 @@ return {
         actions = {
           open_file = {
             quit_on_open = false,
-            focus_file = true,
           },
         },
       })
