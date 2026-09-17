@@ -141,9 +141,6 @@ install_missing_system_packages() {
     queue_missing psql postgresql-libs postgresql-client postgresql
     queue_missing gh github-cli gh gh
 
-    # freeze CLI (requerido por freeze-code.nvim) se instala en 2e, no aqui:
-    # no esta en los repos oficiales de Arch (solo AUR).
-
     local missing=()
     case "$OS" in
         Arch) missing=("${MISSING_ARCH[@]}") ;;
@@ -317,64 +314,9 @@ install_tree_sitter_cli_fallback() {
     esac
 }
 
-# 2e. freeze CLI (requerido por freeze-code.nvim para :Freeze).
-# No esta en los repos oficiales de Arch (solo AUR) ni en Debian/Fedora
-# como paquete nativo, asi que se instala el binario oficial en
-# ~/.local/bin (sin sudo). Idempotente: si ya existe, no hace nada.
-install_freeze_cli() {
-    echo ""
-    echo "Checking freeze CLI (required for :Freeze)..."
-
-    if command -v freeze >/dev/null 2>&1; then
-        echo "  ✓ freeze already installed"
-        return 0
-    fi
-    echo "  ✗ freeze not found, installing..."
-
-    local version="${FREEZE_VERSION:-0.2.2}"
-    local arch
-    case "$(uname -m)" in
-        x86_64) arch="x86_64" ;;
-        aarch64|arm64) arch="arm64" ;;
-        *)
-            echo "ERROR: arquitectura $(uname -m) sin binario precompilado de freeze." >&2
-            return 1
-            ;;
-    esac
-
-    local dest="$HOME/.local/bin"
-    local url="${FREEZE_URL:-https://github.com/charmbracelet/freeze/releases/download/v${version}/freeze_${version}_Linux_${arch}.tar.gz}"
-    echo "Descargando freeze CLI v${version} a $dest ..."
-
-    mkdir -p "$dest"
-    local tmpdir
-    tmpdir="$(mktemp -d)" || return 1
-
-    if curl -fsSL -o "$tmpdir/freeze.tgz" "$url" && [ -s "$tmpdir/freeze.tgz" ] \
-        && tar -xzf "$tmpdir/freeze.tgz" -C "$tmpdir"; then
-        # El tarball trae el binario dentro de una carpeta versionada.
-        local bin
-        bin="$(find "$tmpdir" -type f -name freeze | head -1)"
-        if [ -n "$bin" ]; then
-            install -m 0755 "$bin" "$dest/freeze"
-            echo "  ✓ freeze instalado en $dest/freeze"
-        else
-            echo "ERROR: binario freeze no encontrado en $url" >&2
-            rm -rf "$tmpdir"
-            return 1
-        fi
-    else
-        echo "ERROR: no se pudo instalar freeze CLI desde $url" >&2
-        rm -rf "$tmpdir"
-        return 1
-    fi
-    rm -rf "$tmpdir"
-
-    case ":$PATH:" in
-        *":$dest:"*) ;;
-        *) warn "$dest no esta en PATH; agrega 'export PATH=\"$dest:\$PATH\"' a tu shell" ;;
-    esac
-}
+# 2e. (eliminado) antes instalaba el CLI `freeze` para freeze-code.nvim.
+# Ahora los screenshots usan rayso.nvim (API de ray.so, solo curl),
+# sin binario externo.
 
 resolve_source() {
     if [ -f "$SCRIPT_DIR/init.lua" ] && [ -d "$SCRIPT_DIR/lua" ]; then
@@ -426,7 +368,7 @@ install_language_servers() {
     echo ""
     echo "Installing language servers via Mason..."
 
-    local pkgs=(vtsls tailwindcss-language-server html-lsp css-lsp pyright lua-language-server bash-language-server)
+    local pkgs=(vtsls tailwindcss-language-server html-lsp emmet-language-server css-lsp pyright lua-language-server bash-language-server)
     local all_there=1
     for p in "${pkgs[@]}"; do
         if [ ! -d "$DATA_DIR/mason/packages/$p" ] && [ ! -d "$HOME/.local/share/nvim/mason/packages/$p" ]; then
@@ -467,12 +409,6 @@ verify_installation() {
             echo "  ✗ $cmd (opcional o pendiente)"
         fi
     done
-    if command -v freeze >/dev/null 2>&1; then
-        echo "  ✓ freeze"
-    else
-        echo "  ✗ freeze (REQUERIDO para :Freeze)"
-        failed=1
-    fi
     if command -v tree-sitter >/dev/null 2>&1; then
         echo "  ✓ tree-sitter ($(tree-sitter --version 2>/dev/null))"
     else
@@ -481,7 +417,7 @@ verify_installation() {
 
     echo ""
     echo "Neovim config files:"
-    for file in init.lua lua/core/options.lua lua/core/keymaps.lua lua/core/treesitter.lua lua/plugins/dashboard.lua lua/plugins/lsp.lua lua/plugins/ui.lua lua/plugins/workflow.lua lua/plugins/git.lua; do
+    for file in init.lua lua/core/options.lua lua/core/keymaps.lua lua/core/treesitter.lua lua/plugins/dashboard.lua lua/plugins/lsp.lua lua/plugins/ui.lua lua/plugins/workflow.lua lua/plugins/git.lua lua/plugins/explorer.lua lua/plugins/preview.lua lua/plugins/editing.lua; do
         if [ -f "$CONFIG_DIR/$file" ]; then
             echo "  ✓ $file ($(wc -l < "$CONFIG_DIR/$file") lines)"
         else
@@ -508,7 +444,6 @@ main() {
     install_missing_npm_packages
     install_missing_python_packages
     install_tree_sitter_cli || warn "tree-sitter CLI no disponible; la instalacion de parsers puede fallar."
-    install_freeze_cli || warn "freeze CLI no disponible; :Freeze no funcionara hasta instalarlo."
     resolve_source
     setup_neovim_config
     install_lazy_plugins

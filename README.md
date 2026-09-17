@@ -13,10 +13,11 @@ A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/k
 - **LSP via Mason**: `vtsls`, `tailwindcss`, `html`, `cssls`, `pyright`, `lua_ls`, `bashls`, `jdtls` (Java) — no `sqls`
 - **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua, Bash
 - **Workflow**: Telescope, Trouble, Flash, Harpoon, Oil, Yanky (history), Genghis, Zen Mode, WakaTime
-- **Git**: `gitsigns` + `freeze-code.nvim` screenshots (`<leader>sc`, requires the `freeze` CLI)
+- **Autopares**: `nvim-autopairs` cierra `{} [] () "" '' ``` automáticamente + `nvim-ts-autotag` cierra tags `<> </>` en HTML/JSX/TSX/Vue
+- **Git**: `gitsigns` + `rayso.nvim` para screenshots (`<leader>sc` en modo visual, sin binario externo)
 - **Statusline**: `lualine` + `bufferline` + `nvim-notify`
-- **Markdown in-buffer**: `render-markdown.nvim` renders `.md` beautifully, no browser needed
-- **Live server**: `live-preview.nvim` (`<leader>pv`) serves HTML with live reload
+- **Markdown en el buffer**: `render-markdown.nvim` lo renderiza bonito, sin navegador
+- **Live server**: `live-preview.nvim` (`<leader>pv`) sirve HTML con recarga en vivo (ver [Live Server](#live-server))
 
 ## Structure
 
@@ -29,8 +30,9 @@ lua/plugins/dashboard.lua  alpha-nvim start screen (centered OMNI banner)
 lua/plugins/ui.lua       Themes, lualine, bufferline, notify, noice, zen
 lua/plugins/lsp.lua      Treesitter, Mason, blink.cmp, lspconfig, Java
 lua/plugins/workflow.lua Telescope, Trouble, Flash, Harpoon, Oil, Yanky
-lua/plugins/git.lua      gitsigns, freeze-code
-lua/plugins/explorer.lua nvim-tree (right side)
+lua/plugins/git.lua      gitsigns, rayso.nvim (screenshots sin freeze CLI)
+lua/plugins/explorer.lua nvim-tree (right side, sigue el buffer activo)
+lua/plugins/editing.lua  nvim-autopairs ({} [] () "") + nvim-ts-autotag (<>)
 lua/plugins/preview.lua  render-markdown, live-preview
 script.sh                Smart installer (Arch / Debian / Fedora)
 ```
@@ -43,9 +45,7 @@ cd omninvim
 ./script.sh
 ```
 
-The script only installs what's missing (Neovim 0.11.5+, `rg`, `fd`, node, `freeze` CLI, Mason servers, Treesitter parsers), backs up your old `~/.config/nvim`, and copies this config over. Re-running it just re-syncs.
-
-> `freeze` (required for `:Freeze` screenshots) is installed automatically from the official charmbracelet binary into `~/.local/bin` — it's not in the official Arch repos (AUR only). Override the version with `FREEZE_VERSION=x.y.z ./script.sh`.
+The script only installs what's missing (Neovim 0.11.5+, `rg`, `fd`, node, Mason servers, Treesitter parsers), backs up your old `~/.config/nvim`, and copies this config over. Re-running it just re-syncs.
 
 Open `nvim`, then `:Lazy` / `:Mason` to verify.
 
@@ -62,12 +62,13 @@ Leader is `<Space>`.
 | `<leader>th` | Theme picker (8 themes) |
 | `<leader>z` | Zen Mode |
 
-### Explorer (nvim-tree, right side)
+### Explorer (nvim-tree a la derecha + Oil como buffer)
 
 | Keys | Action |
 |------|--------|
 | `<leader>e` | Toggle tree |
 | `<leader>E` | Focus tree |
+| `-` / `<leader>o` | Oil: abre el directorio **como un buffer** (sin abrir/cerrar el tree) |
 
 Inside the tree:
 
@@ -84,12 +85,16 @@ Inside the tree:
 | `q` | Close tree |
 | `g?` | Show all tree mappings |
 
-### Buffers
+### Buffers (moverse entre archivos abiertos)
 
 | Keys | Action |
 |------|--------|
-| `<S-h>` / `<S-l>` | Previous / next buffer |
-| `<leader>bd` | Close buffer |
+| `<S-h>` / `<S-l>` | Buffer anterior / siguiente (ciclo con `bufferline`) |
+| `<leader>bd` | Cerrar buffer actual |
+| `<leader><leader>` (doble espacio) | Saltar al último buffer visitado (alternar entre 2 archivos) |
+| `:b <nombre><Tab>` | Ir a un buffer por nombre (autocompleta) |
+
+> Los buffers abiertos se ven como pestañas arriba (`bufferline`). Los archivos fijados con Harpoon (`<leader>a`) saltan directo con `<leader>1` – `<leader>4`.
 
 ### Splits
 
@@ -118,6 +123,8 @@ Create them with native keys, move between them with `Navigator.nvim`:
 | `<leader>H` | Unpin all files |
 | `<leader>1` – `<leader>4` | Jump to pinned file 1–4 |
 
+Para **desfijar un solo archivo**: `<leader>h`, borra su línea con `dd` y guarda sí o sí con `:w` (sin `:w` no se aplica). Ojo: `<leader>h` solo abre/cierra el menú, cerrar así **no** guarda.
+
 Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the slot of the current buffer.
 
 ### Motion & files
@@ -130,12 +137,33 @@ Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the 
 | `<leader>fm` | Move file |
 | `<leader>fD` | Trash file |
 
-### Screenshots
+### Screenshots (sin `freeze`)
 
 | Keys | Action |
 |------|--------|
-| `<leader>sc` | Screenshot selection (`:Freeze`, needs the `freeze` CLI) |
-| `<leader>pv` | Live preview current HTML file |
+| `<leader>sc` | Screenshot de la selección visual con ray.so (`:Rayso`, necesita internet) |
+| `<leader>pv` | Live preview del HTML actual |
+| `<leader>pV` | Cerrar el live preview |
+
+### Autopares
+
+`nvim-autopairs` + `nvim-ts-autotag` vienen activos: escribe `{`, `[`, `(`, `"` o `<div>` y se cierra solo. `Alt+e` (`<M-e>`) envuelve la palabra actual con el par.
+
+### Autocompletado (cómo elegir una sugerencia)
+
+Al escribir aparece el menú de `blink.cmp` (LSP + snippets + buffer + rutas):
+
+| Keys | Action |
+|------|--------|
+| `<C-n>` / `<C-p>` (o `<Down>` / `<Up>`) | Moverse a la siguiente / anterior sugerencia |
+| `<CR>` (Enter) | Aceptar la sugerencia resaltada |
+| `<C-e>` | Cerrar el menú sin aceptar |
+| `<C-Space>` | Forzar que aparezca el menú / ver documentación |
+| `<Tab>` / `<S-Tab>` | Saltar al siguiente / anterior hueco del snippet aceptado |
+| `<C-b>` / `<C-f>` | Subir / bajar en la documentación |
+| `<C-k>` | Ver/ocultar la firma de la función |
+
+> `<CR>` acepta lo resaltado; si no hay nada resaltado hace un Enter normal. El preset es `enter` (ver `keymap.preset` en `lua/plugins/lsp.lua`).
 
 ### LSP (buffer with active server; `gd`/`gD` defined by this config, rest are Neovim 0.11+ defaults)
 
@@ -148,6 +176,23 @@ Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the 
 | `grn` | Rename symbol |
 | `gra` | Code action |
 | `gO` | Document symbols |
+
+## Live Server
+
+1. Abre un archivo `.html` en nvim.
+2. Pulsa `<leader>pv` (o ejecuta `:LivePreview`). Se abre `http://localhost:5500` en tu navegador.
+3. Edita y guarda (`<C-s>`): el navegador recarga solo.
+4. Para detenerlo: `<leader>pV` (o `:LivePreviewClose`).
+
+> El puerto se configura en `lua/plugins/preview.lua` (`opts.port = 5500`).
+
+## Explorer sin abrir/cerrar el tree
+
+El tree lateral ya no te roba el foco: al abrir un archivo con `<CR>` el cursor pasa al buffer y el tree sigue la selección (`update_focused_file`). Para no depender del tree usa **Oil como buffer**:
+
+1. Pulsa `-` (o `<leader>o`): el directorio actual se abre como un buffer normal.
+2. Navega con `j/k`, entra con `<CR>`, sube con `-`, crea con `%`, renombra con `R`, borra con `D`.
+3. Guarda con `:w` para aplicar los cambios en disco y vuelve con `<C-o>` o cambia de buffer con `<S-h>` / `<S-l>`.
 
 ## Themes
 

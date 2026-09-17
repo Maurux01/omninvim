@@ -18,6 +18,7 @@ return {
   {
     "saghen/blink.cmp",
     version = "*",
+    dependencies = { "rafamadriz/friendly-snippets" },
     opts = {
       keymap = { preset = "enter" },
       appearance = { nerd_font_variant = "mono" },
@@ -45,7 +46,28 @@ return {
 
       vim.lsp.config("vtsls", { capabilities = capabilities })
       vim.lsp.config("tailwindcss", { capabilities = capabilities })
-      vim.lsp.config("html", { capabilities = capabilities })
+      vim.lsp.config("html", {
+        capabilities = capabilities,
+        filetypes = { "html", "templ" },
+        settings = {
+          html = { format = { enable = true } },
+        },
+        init_options = {
+          provideFormatter = true,
+          embeddedLanguages = { css = true, javascript = true },
+          configurationSection = { "html", "css", "javascript" },
+        },
+      })
+      -- Emmet: expansiones tipo `div.container>ul>li*3` + sugerencias
+      -- en html, css, jsx, tsx, vue, svelte, php, etc.
+      vim.lsp.config("emmet_language_server", {
+        capabilities = capabilities,
+        filetypes = {
+          "html", "css", "scss", "sass", "less",
+          "javascript", "javascriptreact", "typescript", "typescriptreact",
+          "vue", "svelte", "php", "eruby", "templ",
+        },
+      })
       vim.lsp.config("cssls", { capabilities = capabilities })
       vim.lsp.config("bashls", { capabilities = capabilities })
       vim.lsp.config("pyright", { capabilities = capabilities })
@@ -61,7 +83,7 @@ return {
       
 
       require("mason-lspconfig").setup({
-        ensure_installed = { "vtsls", "tailwindcss", "html", "cssls", "pyright", "lua_ls", "bashls" },
+        ensure_installed = { "vtsls", "tailwindcss", "html", "cssls", "pyright", "lua_ls", "bashls", "emmet_language_server" },
         automatic_enable = false,
       })
 
@@ -69,6 +91,7 @@ return {
         "vtsls",
         "tailwindcss",
         "html",
+        "emmet_language_server",
         "cssls",
         "pyright",
         "lua_ls",

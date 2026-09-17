@@ -7,10 +7,14 @@ return {
   },
   {
     "brianhuster/live-preview.nvim",
-    cmd = { "LivePreview" },
+    cmd = { "LivePreview", "LivePreviewClose" },
     keys = {
       { "<leader>pv", "<cmd>LivePreview<CR>", desc = "Live Preview" },
+      { "<leader>pV", "<cmd>LivePreviewClose<CR>", desc = "Cerrar Preview" },
     },
-    opts = {},
+    opts = {
+      port = 5500,
+      browser = "default",
+    },
   },
 }

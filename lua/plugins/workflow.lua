@@ -30,6 +30,12 @@ return {
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = {
+      -- Oil abre el directorio COMO UN BUFFER: editas, creas y
+      -- renombras sin abrir/cerrar el tree lateral.
+      { "-", "<cmd>Oil<CR>", desc = "Oil (dir como buffer)" },
+      { "<leader>o", "<cmd>Oil<CR>", desc = "Oil (dir como buffer)" },
+    },
     config = function()
       require("oil").setup({
         view_options = {
