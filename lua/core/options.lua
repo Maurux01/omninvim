@@ -38,15 +38,28 @@ opt.cursorline = true
 opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.updatetime = 250
+-- Wayland + wl-clipboard: wl-paste imprime "Nothing is copied" (exit 1)
+-- con el clipboard vacío y yanky (sync_with_ring) lo dispara al inicio.
+-- Se silencia stderr: exit 1 con salida vacía = clipboard vacío, sin error visible.
+vim.g.clipboard = {
+  name = "wl-clipboard",
+  copy = {
+    ["+"] = "wl-copy --foreground --type text/plain",
+    ["*"] = "wl-copy --foreground --primary --type text/plain",
+  },
+  paste = {
+    ["+"] = { "sh", "-c", "wl-paste --no-newline 2>/dev/null || true" },
+    ["*"] = { "sh", "-c", "wl-paste --primary --no-newline 2>/dev/null || true" },
+  },
+  cache_enabled = 1,
+}
 opt.clipboard = "unnamedplus"
 
--- Los themes con fondo transparente (catppuccin, tokyonight, etc.)
--- dejan WinSeparator del mismo color que el fondo -> splits invisibles.
--- Se fuerza un color visible y se reaplica en cada cambio de theme.
+-- Neovim solo usa WinSeparator (no existe WinSeparatorNC): todos los
+-- bordes comparten el mismo color, por eso activa/inactiva se veían igual.
+-- Se deja una base visible y el plugin colorful-winsep pinta la activa.
 local function fix_winseparator()
-  -- Ventana activa: línea clara; inactiva: más apagada pero visible.
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#7f849c", bold = true })
-  vim.api.nvim_set_hl(0, "WinSeparatorNC", { fg = "#45475a" })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#6c7086", bg = "NONE", bold = true })
 end
 fix_winseparator()
 vim.api.nvim_create_autocmd("ColorScheme", {

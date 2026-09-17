@@ -50,6 +50,19 @@ return {
   },
   { "mawkler/modicator.nvim", config = function() require("modicator").setup() end },
   {
+    -- Pinta el borde de la ventana ACTIVA (Neovim solo tiene WinSeparator,
+    -- sin variante NC, así que sin esto todos los splits se ven iguales).
+    "nvim-zh/colorful-winsep.nvim",
+    event = { "WinNew" },
+    config = function()
+      require("colorful-winsep").setup({
+        highlight = "#fab387",
+        animate = { enabled = false },
+        indicator_for_2wins = { position = "center" },
+      })
+    end,
+  },
+  {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons", "ThePrimeagen/harpoon" },
     config = function()
