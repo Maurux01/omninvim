@@ -96,7 +96,6 @@ Inside the tree:
 |------|--------|
 | `<S-h>` / `<S-l>` | Previous / next buffer (cycle with `bufferline`) |
 | `<leader>bd` | Close current buffer (forced with `!`, no save prompt) |
-| `<leader><leader>` (double space) | Jump to last visited buffer (toggle between 2 files) |
 | `:b <name><Tab>` | Go to a buffer by name (autocompletes) |
 
 > Open buffers show as tabs on top (`bufferline`). Files pinned with Harpoon (`<leader>a`) jump directly with `<leader>1` – `<leader>4`.

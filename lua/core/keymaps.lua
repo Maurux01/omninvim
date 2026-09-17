@@ -57,7 +57,6 @@ vim.keymap.set("n", "<leader>bd", function()
     vim.cmd("bdelete!")
   end
 end, { desc = "Close Buffer" })
-vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Ultimo Buffer" })
 
 vim.keymap.set("n", "<leader>th", function()
   local themes = {
