@@ -110,6 +110,8 @@ Inside the tree:
 | `<leader>h` | Visual menu with pinned files |
 | `<leader>1` – `<leader>4` | Jump to pinned file 1–4 |
 
+Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the slot of the current buffer.
+
 ### Motion & files
 
 | Keys | Action |
