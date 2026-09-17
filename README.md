@@ -13,7 +13,7 @@ A clean, fast fullstack Neovim setup built on [kickstart.nvim](https://github.co
 - **LSP via Mason**: `vtsls`, `tailwindcss`, `html`, `cssls`, `pyright`, `lua_ls`, `jdtls` (Java) — no `sqls`
 - **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua
 - **Workflow**: Telescope, Trouble, Flash, Harpoon, Oil, Yanky (history), Genghis, Zen Mode, WakaTime
-- **Git**: `gitsigns` + `freeze-code.nvim` screenshots (`<leader>sc`, needs the `freeze` CLI)
+- **Git**: `gitsigns` + `freeze-code.nvim` screenshots (`<leader>sc`, requires the `freeze` CLI)
 - **Statusline**: `lualine` + `bufferline` + `nvim-notify`
 
 ## Structure
@@ -40,9 +40,9 @@ cd simplevim
 ./script.sh
 ```
 
-The script only installs what's missing (Neovim 0.11.5+, `rg`, `fd`, node, Mason servers, Treesitter parsers), backs up your old `~/.config/nvim`, and copies this config over. Re-running it just re-syncs.
+The script only installs what's missing (Neovim 0.11.5+, `rg`, `fd`, node, `freeze` CLI, Mason servers, Treesitter parsers), backs up your old `~/.config/nvim`, and copies this config over. Re-running it just re-syncs.
 
-> Optional: the `freeze` CLI (for `:Freeze` screenshots) is **not** installed by the script — it only warns. Get it from [charmbracelet/freeze](https://github.com/charmbracelet/freeze).
+> `freeze` (required for `:Freeze` screenshots) is installed automatically from the official charmbracelet binary into `~/.local/bin` — it's not in the official Arch repos (AUR only). Override the version with `FREEZE_VERSION=x.y.z ./script.sh`.
 
 Open `nvim`, then `:Lazy` / `:Mason` to verify.
 
