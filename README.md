@@ -61,6 +61,9 @@ Leader is `<Space>`.
 | `<Esc>` | Clear search highlight |
 | `<leader>th` | Theme picker (8 themes) |
 | `<leader>z` | Zen Mode |
+| `<leader>nd` | Cerrar/descartar todas las notificaciones |
+
+> Si una notificación no se va con `<leader>nd`, ciérrala con `:NoiceDismiss`.
 
 ### Explorer (nvim-tree a la derecha + Oil como buffer)
 

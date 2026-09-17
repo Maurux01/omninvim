@@ -83,7 +83,14 @@ return {
   },
   { "akinsho/bufferline.nvim", dependencies = "nvim-tree/nvim-web-devicons", config = function() require("bufferline")
         .setup() end },
-  { "rcarriga/nvim-notify", config = function() vim.notify = require("notify") end },
+  { "rcarriga/nvim-notify", config = function()
+    local notify = require("notify")
+    vim.notify = notify
+    vim.keymap.set("n", "<leader>nd", function()
+      notify.dismiss({ silent = true, pending = true })
+      pcall(vim.cmd, "NoiceDismiss")
+    end, { desc = "Descartar notificaciones" })
+  end },
   { "folke/zen-mode.nvim", config = function() require("zen-mode").setup({ window = { width = 120 } }) end },
   {
     "folke/noice.nvim",
