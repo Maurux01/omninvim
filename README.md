@@ -13,26 +13,27 @@ A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/k
 - **LSP via Mason**: `vtsls`, `tailwindcss`, `html`, `cssls`, `pyright`, `lua_ls`, `bashls`, `jdtls` (Java) — no `sqls`
 - **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua, Bash
 - **Workflow**: Telescope, Trouble, Flash, Harpoon, Oil, Yanky (history), Genghis, Zen Mode, WakaTime
-- **Autopares**: `nvim-autopairs` cierra `{} [] () "" '' ``` automáticamente + `nvim-ts-autotag` cierra tags `<> </>` en HTML/JSX/TSX/Vue
-- **Git**: `gitsigns` + `rayso.nvim` para screenshots (`<leader>sc` en modo visual, sin binario externo)
+- **Autopairs**: `nvim-autopairs` auto-closes `{} [] () "" '' ``` + `nvim-ts-autotag` auto-closes tags `<> </>` in HTML/JSX/TSX/Vue
+- **Git**: `gitsigns` + `rayso.nvim` for screenshots (`<leader>sc` in visual mode, no external binary)
 - **Statusline**: `lualine` + `bufferline` + `nvim-notify`
-- **Markdown en el buffer**: `render-markdown.nvim` lo renderiza bonito, sin navegador
-- **Live server**: `live-preview.nvim` (`<leader>pv`) sirve HTML con recarga en vivo (ver [Live Server](#live-server))
+- **In-buffer Markdown**: `render-markdown.nvim` renders it nicely, no browser needed
+- **Live server**: `live-preview.nvim` (`<leader>pv`) serves HTML with live reload (see [Live Server](#live-server))
+- **Terminal**: `<Esc>` exits to Normal mode, `<C-h/j/k/l>` moves between splits with `Navigator.nvim`
 
 ## Structure
 
 ```
 init.lua                 Lazy bootstrap + core modules
 lua/core/options.lua     Numbers, fillchars, cmdheight, indent, clipboard
-lua/core/keymaps.lua     Leader, navigation, Harpoon, Flash, themes
+lua/core/keymaps.lua     Leader, navigation, Harpoon, Flash, themes, terminal
 lua/core/treesitter.lua  Parser list + setup (0.11 / 0.12 API)
 lua/plugins/dashboard.lua  alpha-nvim start screen (centered OMNI banner)
 lua/plugins/ui.lua       Themes, lualine, bufferline, notify, noice, zen
 lua/plugins/lsp.lua      Treesitter, Mason, blink.cmp, lspconfig, Java
 lua/plugins/java.lua     Java: mason-tool-installer (jdtls/test/debug/format), nvim-dap + UI, conform
 lua/plugins/workflow.lua Telescope, Trouble, Flash, Harpoon, Oil, Yanky
-lua/plugins/git.lua      gitsigns, rayso.nvim (screenshots sin freeze CLI)
-lua/plugins/explorer.lua nvim-tree (right side, sigue el buffer activo)
+lua/plugins/git.lua      gitsigns, rayso.nvim (screenshots without CLI freeze)
+lua/plugins/explorer.lua nvim-tree (right side, follows the active buffer)
 lua/plugins/editing.lua  nvim-autopairs ({} [] () "") + nvim-ts-autotag (<>)
 lua/plugins/preview.lua  render-markdown, live-preview
 script.sh                Smart installer (Arch / Debian / Fedora)
@@ -60,19 +61,19 @@ Leader is `<Space>`.
 |------|--------|
 | `<C-s>` | Save file |
 | `<Esc>` | Clear search highlight |
-| `<leader>th` | Theme picker (8 themes) |
+| `<leader>th` | Theme picker (25 themes) |
 | `<leader>z` | Zen Mode |
-| `<leader>nd` | Cerrar/descartar todas las notificaciones |
+| `<leader>nd` | Close/dismiss all notifications |
 
-> Si una notificación no se va con `<leader>nd`, ciérrala con `:NoiceDismiss`.
+> If a notification does not go away with `<leader>nd`, close it with `:NoiceDismiss`.
 
-### Explorer (nvim-tree a la derecha + Oil como buffer)
+### Explorer (nvim-tree on the right + Oil as a buffer)
 
 | Keys | Action |
 |------|--------|
 | `<leader>e` | Toggle tree |
 | `<leader>E` | Focus tree |
-| `-` / `<leader>o` | Oil: abre el directorio **como un buffer** (sin abrir/cerrar el tree) |
+| `-` / `<leader>o` | Oil: open the directory **as a buffer** (without opening/closing the tree) |
 
 Inside the tree:
 
@@ -89,16 +90,16 @@ Inside the tree:
 | `q` | Close tree |
 | `g?` | Show all tree mappings |
 
-### Buffers (moverse entre archivos abiertos)
+### Buffers (move between open files)
 
 | Keys | Action |
 |------|--------|
-| `<S-h>` / `<S-l>` | Buffer anterior / siguiente (ciclo con `bufferline`) |
-| `<leader>bd` | Cerrar buffer actual (forzado con `!`, no pide guardar) |
-| `<leader><leader>` (doble espacio) | Saltar al último buffer visitado (alternar entre 2 archivos) |
-| `:b <nombre><Tab>` | Ir a un buffer por nombre (autocompleta) |
+| `<S-h>` / `<S-l>` | Previous / next buffer (cycle with `bufferline`) |
+| `<leader>bd` | Close current buffer (forced with `!`, no save prompt) |
+| `<leader><leader>` (double space) | Jump to last visited buffer (toggle between 2 files) |
+| `:b <name><Tab>` | Go to a buffer by name (autocompletes) |
 
-> Los buffers abiertos se ven como pestañas arriba (`bufferline`). Los archivos fijados con Harpoon (`<leader>a`) saltan directo con `<leader>1` – `<leader>4`.
+> Open buffers show as tabs on top (`bufferline`). Files pinned with Harpoon (`<leader>a`) jump directly with `<leader>1` – `<leader>4`.
 
 ### Splits
 
@@ -109,6 +110,16 @@ Create them with native keys, move between them with `Navigator.nvim`:
 | `<C-w>v` / `<C-w>s` | Vertical / horizontal split |
 | `<C-w>c` / `<C-w>o` | Close split / keep only current |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to left / down / up / right split |
+
+### Terminal (`:terminal`)
+
+| Keys | Action |
+|------|--------|
+| `<Esc>` | Exit Terminal-Insert to Normal mode (`<C-\><C-n>`) |
+| `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to left / down / up / right split via `Navigator.nvim` |
+| `i` / `a` | Go back to terminal input |
+
+Flow: open with `:terminal`, press `<Esc>` to move with `hjkl` / `Ctrl-w`, press `i` to type again.
 
 ### Yanky (yank history)
 
@@ -127,7 +138,7 @@ Create them with native keys, move between them with `Navigator.nvim`:
 | `<leader>H` | Unpin all files |
 | `<leader>1` – `<leader>4` | Jump to pinned file 1–4 |
 
-Para **desfijar un solo archivo**: `<leader>h`, borra su línea con `dd` y guarda sí o sí con `:w` (sin `:w` no se aplica). Ojo: `<leader>h` solo abre/cierra el menú, cerrar así **no** guarda.
+To **unpin a single file**: `<leader>h`, delete its line with `dd` and save with `:w` (it is not applied without `:w`). Note: `<leader>h` only opens/closes the menu, closing it that way does **not** save.
 
 Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the slot of the current buffer.
 
@@ -141,33 +152,33 @@ Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the 
 | `<leader>fm` | Move file |
 | `<leader>fD` | Trash file |
 
-### Screenshots (sin `freeze`)
+### Screenshots (no `freeze`)
 
 | Keys | Action |
 |------|--------|
-| `<leader>sc` | Screenshot de la selección visual con ray.so (`:Rayso`, necesita internet) |
-| `<leader>pv` | Live preview del HTML actual |
-| `<leader>pV` | Cerrar el live preview |
+| `<leader>sc` | Screenshot of the visual selection with ray.so (`:Rayso`, needs internet) |
+| `<leader>pv` | Live preview of the current HTML |
+| `<leader>pV` | Close the live preview |
 
-### Autopares
+### Autopairs
 
-`nvim-autopairs` + `nvim-ts-autotag` vienen activos: escribe `{`, `[`, `(`, `"` o `<div>` y se cierra solo. `Alt+e` (`<M-e>`) envuelve la palabra actual con el par.
+`nvim-autopairs` + `nvim-ts-autotag` are enabled: type `{`, `[`, `(`, `"` or `<div>` and it closes automatically. `Alt+e` (`<M-e>`) wraps the current word with the pair.
 
-### Autocompletado (cómo elegir una sugerencia)
+### Autocompletion (how to pick a suggestion)
 
-Al escribir aparece el menú de `blink.cmp` (LSP + snippets + buffer + rutas):
+While typing, the `blink.cmp` menu shows up (LSP + snippets + buffer + paths):
 
 | Keys | Action |
 |------|--------|
-| `<Tab>` / `<S-Tab>` | Siguiente / anterior sugerencia (si no hay menú, salta al siguiente / anterior hueco del snippet) |
-| `<C-n>` / `<C-p>` (o `<Down>` / `<Up>`) | Moverse a la siguiente / anterior sugerencia |
-| `<CR>` (Enter) | Aceptar la sugerencia resaltada |
-| `<C-e>` | Cerrar el menú sin aceptar |
-| `<C-Space>` | Forzar que aparezca el menú / ver documentación |
-| `<C-b>` / `<C-f>` | Subir / bajar en la documentación |
-| `<C-k>` | Ver/ocultar la firma de la función |
+| `<Tab>` / `<S-Tab>` | Next / previous suggestion (if no menu, jump to next / previous snippet placeholder) |
+| `<C-n>` / `<C-p>` (or `<Down>` / `<Up>`) | Move to next / previous suggestion |
+| `<CR>` (Enter) | Accept the highlighted suggestion |
+| `<C-e>` | Close the menu without accepting |
+| `<C-Space>` | Force the menu / show docs |
+| `<C-b>` / `<C-f>` | Scroll up / down in docs |
+| `<C-k>` | Show/hide function signature |
 
-> `<CR>` acepta lo resaltado; si no hay nada resaltado hace un Enter normal. Preset `enter` con `Tab`/`S-Tab` remapeados a `select_next`/`select_prev` (con fallback a `snippet_forward`/`snippet_backward`, ver `keymap` en `lua/plugins/lsp.lua`).
+> `<CR>` accepts the highlighted item; if nothing is highlighted it inserts a normal Enter. `enter` preset with `Tab`/`S-Tab` remapped to `select_next`/`select_prev` (with fallback to `snippet_forward`/`snippet_backward`, see `keymap` in `lua/plugins/lsp.lua`).
 
 ### LSP (buffer with active server; `gd`/`gD` defined by this config, rest are Neovim 0.11+ defaults)
 
@@ -183,20 +194,20 @@ Al escribir aparece el menú de `blink.cmp` (LSP + snippets + buffer + rutas):
 
 ## Live Server
 
-1. Abre un archivo `.html` en nvim.
-2. Pulsa `<leader>pv` (o ejecuta `:LivePreview`). Se abre `http://localhost:5500` en tu navegador.
-3. Edita y guarda (`<C-s>`): el navegador recarga solo.
-4. Para detenerlo: `<leader>pV` (o `:LivePreviewClose`).
+1. Open an `.html` file in nvim.
+2. Press `<leader>pv` (or run `:LivePreview`). It opens `http://localhost:5500` in your browser.
+3. Edit and save (`<C-s>`): the browser reloads automatically.
+4. To stop it: `<leader>pV` (or `:LivePreviewClose`).
 
-> El puerto se configura en `lua/plugins/preview.lua` (`opts.port = 5500`).
+> The port is configured in `lua/plugins/preview.lua` (`opts.port = 5500`).
 
-## Explorer sin abrir/cerrar el tree
+## Explorer without opening/closing the tree
 
-El tree lateral ya no te roba el foco: al abrir un archivo con `<CR>` el cursor pasa al buffer y el tree sigue la selección (`update_focused_file`). Para no depender del tree usa **Oil como buffer**:
+The side tree no longer steals focus: when you open a file with `<CR>` the cursor moves to the buffer and the tree follows the selection (`update_focused_file`). To avoid depending on the tree, use **Oil as a buffer**:
 
-1. Pulsa `-` (o `<leader>o`): el directorio actual se abre como un buffer normal.
-2. Navega con `j/k`, entra con `<CR>`, sube con `-`, crea con `%`, renombra con `R`, borra con `D`.
-3. Guarda con `:w` para aplicar los cambios en disco y vuelve con `<C-o>` o cambia de buffer con `<S-h>` / `<S-l>`.
+1. Press `-` (or `<leader>o`): the current directory opens as a normal buffer.
+2. Navigate with `j/k`, enter with `<CR>`, go up with `-`, create with `%`, rename with `R`, delete with `D`.
+3. Save with `:w` to apply changes to disk and go back with `<C-o>` or switch buffers with `<S-h>` / `<S-l>`.
 
 ## Themes
 
@@ -253,9 +264,6 @@ Select with `<CR>`, cancel with `<Esc>`. The choice lasts for the session; to ch
 - `git`, `rg`, `fd`, `node`, `npm`, `python3`
 - `tree-sitter` CLI ≥ 0.26.1 (the script installs it if missing)
 
-## Made by  
+## Made by
 
 [maurux01](https://github.com/Maurux01)
-
-
-
