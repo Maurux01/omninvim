@@ -6,6 +6,13 @@ vim.keymap.set("n", "<C-l>", "<cmd>NavigatorRight<CR>", { desc = "Window Right" 
 vim.keymap.set("n", "<C-j>", "<cmd>NavigatorDown<CR>", { desc = "Window Down" })
 vim.keymap.set("n", "<C-k>", "<cmd>NavigatorUp<CR>", { desc = "Window Up" })
 
+-- Terminal: <Esc> sale a Normal, <C-hjkl> navega ventanas.
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Terminal Normal Mode" })
+vim.keymap.set("t", "<C-h>", [[<C-\><C-n><cmd>NavigatorLeft<CR>]], { desc = "Window Left" })
+vim.keymap.set("t", "<C-l>", [[<C-\><C-n><cmd>NavigatorRight<CR>]], { desc = "Window Right" })
+vim.keymap.set("t", "<C-j>", [[<C-\><C-n><cmd>NavigatorDown<CR>]], { desc = "Window Down" })
+vim.keymap.set("t", "<C-k>", [[<C-\><C-n><cmd>NavigatorUp<CR>]], { desc = "Window Up" })
+
 vim.keymap.set("n", "<leader>a", function() require("harpoon"):list():add() end, { desc = "Harpoon Add" })
 vim.keymap.set("n", "<leader>h", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, { desc = "Harpoon Menu" })
 vim.keymap.set("n", "<leader>H", function() require("harpoon"):list():clear() end, { desc = "Harpoon Clear All" })
