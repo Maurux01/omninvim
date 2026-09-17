@@ -38,6 +38,9 @@ return {
     },
     config = function()
       require("oil").setup({
+        -- Solo nvim-tree secuestra `nvim <dir>`: oil se abre
+        -- explicito con `-` / <leader>o para no pelear al inicio.
+        default_file_explorer = false,
         view_options = {
           show_hidden = true,
         },

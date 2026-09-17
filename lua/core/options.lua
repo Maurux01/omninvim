@@ -1,3 +1,9 @@
+-- Desactivar netrw lo antes posible: nvim-tree lo exige antes de que
+-- se cargue el runtime (si se hace dentro del config de lazy ya es tarde
+-- y netrwPlugin.vim ya fue sourced).
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local opt = vim.opt
 
 opt.number = true
