@@ -14,9 +14,9 @@ A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/k
 - **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua, Bash
 - **Workflow**: Telescope, Trouble, Flash, Harpoon, Oil, Yanky (history), Genghis, Zen Mode, WakaTime
 - **Autopairs**: `nvim-autopairs` auto-closes `{} [] () "" '' ``` + `nvim-ts-autotag` auto-closes tags `<> </>` in HTML/JSX/TSX/Vue
-- **Git**: `gitsigns` (hunks con `]h`/`[h` y `<leader>g*`, ver [Git hunks](#git-hunks)) + `rayso.nvim` for screenshots (`<leader>sc` in visual mode, no external binary)
-- **Statusline**: `lualine` per-split (cada split con la suya, inactivas tenues, sin lualine en el tree) + borde de ventana activa en naranja (`colorful-winsep`) + `bufferline` + `nvim-notify`
-- **Format on save**: `conform.nvim` — `prettierd` (JS/TS/JSX/TSX/JSON/CSS/HTML), `ruff` (Python), `stylua` (Lua), `google-java-format` (Java); con fallback al LSP (ver [Format](#format))
+- **Git**: `gitsigns` (hunks with `]h`/`[h` and `<leader>g*`, see [Git hunks](#git-hunks)) + `rayso.nvim` for screenshots (`<leader>sc` in visual mode, no external binary)
+- **Statusline**: per-split `lualine` (each split gets its own, inactive ones dimmed, none in the tree) + orange active-window border (`colorful-winsep`) + `bufferline` + `nvim-notify`
+- **Format on save**: `conform.nvim` — `prettierd` (JS/TS/JSX/TSX/JSON/CSS/HTML), `ruff` (Python), `stylua` (Lua), `google-java-format` (Java); with LSP fallback (see [Format](#format))
 - **In-buffer Markdown**: `render-markdown.nvim` renders it nicely, no browser needed
 - **Live server**: `live-preview.nvim` (`<leader>pv`) serves HTML with live reload (see [Live Server](#live-server))
 - **Terminal**: `<Esc>` exits to Normal mode, `<C-h/j/k/l>` moves between splits with `Navigator.nvim`
@@ -157,15 +157,15 @@ Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the 
 | Keys | Action |
 |------|--------|
 | `]h` / `[h` | Next / previous hunk |
-| `<leader>gs` / `<leader>gr` | Stage / reset hunk (funciona en visual con selección) |
-| `<leader>gS` / `<leader>gR` | Stage / reset buffer completo |
+| `<leader>gs` / `<leader>gr` | Stage / reset hunk (works in visual with a selection) |
+| `<leader>gS` / `<leader>gR` | Stage / reset whole buffer |
 | `<leader>gp` | Preview hunk |
-| `<leader>gb` | Blame de la línea |
-| `<leader>gd` | Diff del hunk |
+| `<leader>gb` | Blame line |
+| `<leader>gd` | Diff hunk |
 
 ### Format
 
-`conform.nvim` formatea al guardar (`:w`): `prettierd` en JS/TS/JSX/TSX/JSON/CSS/HTML, `ruff` en Python, `stylua` en Lua, `google-java-format` en Java. Los binarios los instala Mason solo; si alguno falta se usa el LSP como fallback. Ver estado con `:ConformInfo`.
+`conform.nvim` formats on save (`:w`): `prettierd` for JS/TS/JSX/TSX/JSON/CSS/HTML, `ruff` for Python, `stylua` for Lua, `google-java-format` for Java. Mason installs the binaries by itself; if one is missing the LSP is used as fallback. Check status with `:ConformInfo`.
 
 ### Screenshots (no `freeze`)
 
