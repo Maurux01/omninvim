@@ -6,7 +6,7 @@ return {
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
       require("nvim-tree").setup({
-        view = { side = "left", width = 30 },
+        view = { side = "right", width = 30 },
         renderer = { highlight_git = true },
         filters = { dotfiles = false },
         actions = { open_file = { quit_on_open = false } },
