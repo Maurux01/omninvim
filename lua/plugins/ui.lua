@@ -84,12 +84,22 @@ return {
         return "󰐃 " .. table.concat(parts, " ")
       end
       require("lualine").setup({
-        options = { theme = "auto" },
+        -- globalstatus=false + laststatus=2 (core/options): cada split
+        -- dibuja su propio lualine; la activa a color, las inactivas tenues.
+        options = { theme = "auto", globalstatus = false },
         sections = {
           lualine_c = {
             "filename",
             { harpoon_marks, color = { fg = "#fab387" } },
           },
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = { "filename" },
+          lualine_x = { "location" },
+          lualine_y = {},
+          lualine_z = {},
         },
       })
     end,
