@@ -17,6 +17,10 @@ vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "Zen Mode" })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save" })
 
+vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev Buffer" })
+vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next Buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close Buffer" })
+
 vim.keymap.set("n", "<leader>th", function()
   local themes = {
     { name = "Catppuccin Frappe", cmd = "colorscheme catppuccin" },

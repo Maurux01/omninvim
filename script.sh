@@ -426,7 +426,7 @@ install_language_servers() {
     echo ""
     echo "Installing language servers via Mason..."
 
-    local pkgs=(vtsls tailwindcss-language-server html-lsp css-lsp pyright lua-language-server )
+    local pkgs=(vtsls tailwindcss-language-server html-lsp css-lsp pyright lua-language-server bash-language-server)
     local all_there=1
     for p in "${pkgs[@]}"; do
         if [ ! -d "$DATA_DIR/mason/packages/$p" ] && [ ! -d "$HOME/.local/share/nvim/mason/packages/$p" ]; then

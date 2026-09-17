@@ -38,6 +38,7 @@ return {
       vim.lsp.config("tailwindcss", { capabilities = capabilities })
       vim.lsp.config("html", { capabilities = capabilities })
       vim.lsp.config("cssls", { capabilities = capabilities })
+      vim.lsp.config("bashls", { capabilities = capabilities })
       vim.lsp.config("pyright", { capabilities = capabilities })
       vim.lsp.config("lua_ls", {
         capabilities = capabilities,
@@ -51,7 +52,7 @@ return {
       
 
       require("mason-lspconfig").setup({
-        ensure_installed = { "vtsls", "tailwindcss", "html", "cssls", "pyright", "lua_ls"},
+        ensure_installed = { "vtsls", "tailwindcss", "html", "cssls", "pyright", "lua_ls", "bashls" },
         automatic_enable = false,
       })
 
@@ -62,6 +63,7 @@ return {
         "cssls",
         "pyright",
         "lua_ls",
+        "bashls",
       })
     end,
   },

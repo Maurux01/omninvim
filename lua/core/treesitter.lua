@@ -2,7 +2,7 @@ local M = {}
 
 M.parsers = {
   "javascript", "typescript", "tsx", "html", "css",
-  "python", "java", "sql", "json", "lua",
+  "python", "java", "sql", "json", "lua", "bash",
 }
 
 function M.setup()

@@ -4,14 +4,14 @@ A clean, fast fullstack Neovim setup built on [kickstart.nvim](https://github.co
 
 ## Features
 
-- **File explorer on the right**: `nvim-tree` sidebar (`<leader>e` to toggle, `<C-n>` to focus)
+- **File explorer on the right**: `nvim-tree` sidebar (`<leader>e` to toggle, `<leader>E` to focus)
 - **Floating command line**: `noice.nvim` popup (`:` floats centered, `lualine` stays glued to the bottom)
 - **Real line numbers**: absolute numbers, no relative mode
 - **No `~` filler**: clean end-of-buffer via `fillchars`
 - **8 themes on demand**: Catppuccin Frappe (default), Rose Pine Moon, Tokyo Night, Gruvbox Material, Everforest, Nord, OneDark, Kanagawa — switch with `<leader>th`
 - **Completion**: `blink.cmp` with LSP, path, snippets and buffer sources
-- **LSP via Mason**: `vtsls`, `tailwindcss`, `html`, `cssls`, `pyright`, `lua_ls`, `jdtls` (Java) — no `sqls`
-- **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua
+- **LSP via Mason**: `vtsls`, `tailwindcss`, `html`, `cssls`, `pyright`, `lua_ls`, `bashls`, `jdtls` (Java) — no `sqls`
+- **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua, Bash
 - **Workflow**: Telescope, Trouble, Flash, Harpoon, Oil, Yanky (history), Genghis, Zen Mode, WakaTime
 - **Git**: `gitsigns` + `freeze-code.nvim` screenshots (`<leader>sc`, requires the `freeze` CLI)
 - **Statusline**: `lualine` + `bufferline` + `nvim-notify`
@@ -48,21 +48,94 @@ Open `nvim`, then `:Lazy` / `:Mason` to verify.
 
 ## Keymaps
 
+Leader is `<Space>`.
+
+### General
+
 | Keys | Action |
 |------|--------|
-| `<leader>e` / `<C-n>` | Toggle / focus file tree |
-| `<C-h/j/k/l>` | Move between splits (Navigator) |
-| `<leader>a`, `<leader>1-4` | Harpoon add / jump |
-| `s` | Flash jump |
+| `<C-s>` | Save file |
+| `<Esc>` | Clear search highlight |
+| `<leader>th` | Theme picker (8 themes) |
 | `<leader>z` | Zen Mode |
-| `<leader>th` | Theme picker |
-| `<leader>fn/fr/fm/fD` | New / rename / move / trash file (Genghis) |
-| `<leader>sc` | Screenshot code (Freeze) |
-| `<C-s>` | Save |
-| `<C-p>` / `<C-n>` | Cycle yank history |
-| `y` / `p` / `P` | Yank / paste (Yanky) |
 
-Leader is `<Space>`.
+### Explorer (nvim-tree, right side)
+
+| Keys | Action |
+|------|--------|
+| `<leader>e` | Toggle tree |
+| `<leader>E` | Focus tree |
+
+Inside the tree:
+
+| Keys | Action |
+|------|--------|
+| `<CR>` / `o` | Open file / expand folder |
+| `a` | Create file / folder |
+| `d` | Delete |
+| `r` | Rename |
+| `x` / `c` / `p` | Cut / copy / paste |
+| `R` | Refresh |
+| `W` | Collapse all |
+| `-` | Go up one directory |
+| `q` | Close tree |
+| `g?` | Show all tree mappings |
+
+### Buffers
+
+| Keys | Action |
+|------|--------|
+| `<S-h>` / `<S-l>` | Previous / next buffer |
+| `<leader>bd` | Close buffer |
+
+### Splits
+
+| Keys | Action |
+|------|--------|
+| `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to left / down / up / right split |
+
+### Yanky (yank history)
+
+| Keys | Action |
+|------|--------|
+| `y` | Yank (saves to history) |
+| `p` / `P` | Paste after / before |
+| `<C-p>` / `<C-n>` | Cycle history forward / backward |
+
+### Harpoon (pinned files)
+
+| Keys | Action |
+|------|--------|
+| `<leader>a` | Pin current file |
+| `<leader>1` – `<leader>4` | Jump to pinned file 1–4 |
+
+### Motion & files
+
+| Keys | Action |
+|------|--------|
+| `s` | Flash jump |
+| `<leader>fn` | New file (Genghis) |
+| `<leader>fr` | Rename file |
+| `<leader>fm` | Move file |
+| `<leader>fD` | Trash file |
+
+### Screenshots
+
+| Keys | Action |
+|------|--------|
+| `<leader>sc` | Screenshot selection (`:Freeze`, needs the `freeze` CLI) |
+
+### LSP (Neovim 0.11 defaults)
+
+| Keys | Action |
+|------|--------|
+| `gd` / `gD` | Go to definition / declaration |
+| `K` | Hover docs |
+| `gri` | Go to implementation |
+| `grr` | References |
+| `grn` | Rename symbol |
+| `gra` | Code action |
+| `gO` | Document symbols |
 
 ## LSP servers
 
@@ -74,6 +147,7 @@ Leader is `<Space>`.
 | `cssls` | CSS / SCSS / Less |
 | `pyright` | Python |
 | `lua_ls` | Lua |
+| `bashls` | Bash / Shell |
 | `jdtls` | Java (via nvim-java, filetype only) |
 
 ## Requirements

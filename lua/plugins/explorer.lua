@@ -12,7 +12,7 @@ return {
         actions = { open_file = { quit_on_open = false } },
       })
       vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Explorer" })
-      vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeFocus<CR>", { desc = "Focus Explorer" })
+      vim.keymap.set("n", "<leader>E", "<cmd>NvimTreeFocus<CR>", { desc = "Focus Explorer" })
     end,
   },
 }
