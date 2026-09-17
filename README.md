@@ -197,3 +197,10 @@ Select with `<CR>`, cancel with `<Esc>`. The choice lasts for the session; to ch
 - Neovim **0.11.5+**
 - `git`, `rg`, `fd`, `node`, `npm`, `python3`
 - `tree-sitter` CLI ≥ 0.26.1 (the script installs it if missing)
+
+## Made by  
+
+[maurux01](https://github.com/Maurux01)
+
+
+
