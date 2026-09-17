@@ -107,6 +107,7 @@ Inside the tree:
 | Keys | Action |
 |------|--------|
 | `<leader>a` | Pin current file |
+| `<leader>h` | Visual menu with pinned files |
 | `<leader>1` – `<leader>4` | Jump to pinned file 1–4 |
 
 ### Motion & files
