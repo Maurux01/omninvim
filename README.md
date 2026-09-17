@@ -1,4 +1,4 @@
-# omniNvim
+# omninvim
 
 A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim) ideas and managed with **Lazy.nvim**.
 
