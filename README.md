@@ -8,7 +8,7 @@ A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/k
 - **Floating command line**: `noice.nvim` popup (`:` floats centered, `lualine` stays glued to the bottom)
 - **Real line numbers**: absolute numbers, no relative mode
 - **No `~` filler**: clean end-of-buffer via `fillchars`
-- **8 themes on demand**: Catppuccin Frappe (default), Rose Pine Moon, Tokyo Night, Gruvbox Material, Everforest, Nord, OneDark, Kanagawa — switch with `<leader>th`
+- **12 themes on demand**: Catppuccin Frappe (default), Rose Pine Moon, Tokyo Night, Gruvbox Material, Everforest, Nord, OneDark, Kanagawa, Dracula, Cyberdream, Eldritch, Oxocarbon — all dark, switch with `<leader>th`
 - **Completion**: `blink.cmp` with LSP, path, snippets and buffer sources
 - **LSP via Mason**: `vtsls`, `tailwindcss`, `html`, `cssls`, `pyright`, `lua_ls`, `bashls`, `jdtls` (Java) — no `sqls`
 - **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua, Bash
@@ -154,6 +154,10 @@ Press `<leader>th` to open the theme picker (Telescope):
 | 6 | Nord | Transparent |
 | 7 | OneDark | Darker, transparent |
 | 8 | Kanagawa | Wave, transparent |
+| 9 | Dracula | Classic dark |
+| 10 | Cyberdream | Neon dark, transparent |
+| 11 | Eldritch | Neon dark |
+| 12 | Oxocarbon | Near-black (IBM Carbon) |
 
 Select with `<CR>`, cancel with `<Esc>`. The choice lasts for the session; to change the default, edit the `colorscheme` call in `lua/plugins/ui.lua`.
 

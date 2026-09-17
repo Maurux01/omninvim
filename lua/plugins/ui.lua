@@ -16,6 +16,10 @@ return {
   { "gbprod/nord.nvim", priority = 1000, config = function() require("nord").setup({ transparent = true }) end },
   { "navarasu/onedark.nvim", priority = 1000, config = function() require("onedark").setup({ style = "darker", transparent = true }) end },
   { "rebelot/kanagawa.nvim", priority = 1000, config = function() require("kanagawa").setup({ theme = "wave", transparent = true }) end },
+  { "Mofiqul/dracula.nvim", priority = 1000 },
+  { "scottmckendry/cyberdream.nvim", priority = 1000 },
+  { "eldritch-theme/eldritch.nvim", priority = 1000 },
+  { "nyoom-engineering/oxocarbon.nvim", priority = 1000 },
 
   { "HiPhish/rainbow-delimiters.nvim", config = function() require("rainbow-delimiters.setup").setup() end },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false }, indent = { char = "│" } } },

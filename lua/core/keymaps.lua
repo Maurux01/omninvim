@@ -32,6 +32,10 @@ vim.keymap.set("n", "<leader>th", function()
     { name = "Nord",              cmd = "colorscheme nord" },
     { name = "OneDark",           cmd = "colorscheme onedark" },
     { name = "Kanagawa Wave",     cmd = "colorscheme kanagawa" },
+    { name = "Dracula",           cmd = "colorscheme dracula" },
+    { name = "Cyberdream",        cmd = "colorscheme cyberdream" },
+    { name = "Eldritch",          cmd = "colorscheme eldritch" },
+    { name = "Oxocarbon",         cmd = "colorscheme oxocarbon" },
   }
   require("telescope.pickers").new({}, {
     prompt_title = "Select Theme",
