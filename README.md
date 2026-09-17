@@ -14,8 +14,9 @@ A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/k
 - **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua, Bash
 - **Workflow**: Telescope, Trouble, Flash, Harpoon, Oil, Yanky (history), Genghis, Zen Mode, WakaTime
 - **Autopairs**: `nvim-autopairs` auto-closes `{} [] () "" '' ``` + `nvim-ts-autotag` auto-closes tags `<> </>` in HTML/JSX/TSX/Vue
-- **Git**: `gitsigns` + `rayso.nvim` for screenshots (`<leader>sc` in visual mode, no external binary)
-- **Statusline**: `lualine` + `bufferline` + `nvim-notify`
+- **Git**: `gitsigns` (hunks con `]h`/`[h` y `<leader>g*`, ver [Git hunks](#git-hunks)) + `rayso.nvim` for screenshots (`<leader>sc` in visual mode, no external binary)
+- **Statusline**: `lualine` per-split (cada split con la suya, inactivas tenues, sin lualine en el tree) + borde de ventana activa en naranja (`colorful-winsep`) + `bufferline` + `nvim-notify`
+- **Format on save**: `conform.nvim` — `prettierd` (JS/TS/JSX/TSX/JSON/CSS/HTML), `ruff` (Python), `stylua` (Lua), `google-java-format` (Java); con fallback al LSP (ver [Format](#format))
 - **In-buffer Markdown**: `render-markdown.nvim` renders it nicely, no browser needed
 - **Live server**: `live-preview.nvim` (`<leader>pv`) serves HTML with live reload (see [Live Server](#live-server))
 - **Terminal**: `<Esc>` exits to Normal mode, `<C-h/j/k/l>` moves between splits with `Navigator.nvim`
@@ -30,9 +31,9 @@ lua/core/treesitter.lua  Parser list + setup (0.11 / 0.12 API)
 lua/plugins/dashboard.lua  alpha-nvim start screen (centered OMNI banner)
 lua/plugins/ui.lua       Themes, lualine, bufferline, notify, noice, zen
 lua/plugins/lsp.lua      Treesitter, Mason, blink.cmp, lspconfig, Java
-lua/plugins/java.lua     Java: mason-tool-installer (jdtls/test/debug/format), nvim-dap + UI, conform
+lua/plugins/java.lua     Java: mason-tool-installer (jdtls/test/debug + prettierd/stylua/ruff), nvim-dap + UI, conform (format on save multi-lenguaje)
 lua/plugins/workflow.lua Telescope, Trouble, Flash, Harpoon, Oil, Yanky
-lua/plugins/git.lua      gitsigns, rayso.nvim (screenshots without CLI freeze)
+lua/plugins/git.lua      gitsigns (hunk keymaps `<leader>g*`, `]h`/`[h`), rayso.nvim (screenshots without CLI freeze)
 lua/plugins/explorer.lua nvim-tree (right side, follows the active buffer)
 lua/plugins/editing.lua  nvim-autopairs ({} [] () "") + nvim-ts-autotag (<>)
 lua/plugins/preview.lua  render-markdown, live-preview
@@ -107,7 +108,7 @@ Create them with native keys, move between them with `Navigator.nvim`:
 | Keys | Action |
 |------|--------|
 | `<C-w>v` / `<C-w>s` | Vertical / horizontal split |
-| `<C-w>c` / `<C-w>o` | Close split / keep only current |
+| `<C-w>c` / `<C-w>o` | Close split / keep only current (forced with `!`, no save prompt) |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to left / down / up / right split |
 
 ### Terminal (`:terminal`)
@@ -150,6 +151,21 @@ Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the 
 | `<leader>fr` | Rename file |
 | `<leader>fm` | Move file |
 | `<leader>fD` | Trash file |
+
+### Git hunks
+
+| Keys | Action |
+|------|--------|
+| `]h` / `[h` | Next / previous hunk |
+| `<leader>gs` / `<leader>gr` | Stage / reset hunk (funciona en visual con selección) |
+| `<leader>gS` / `<leader>gR` | Stage / reset buffer completo |
+| `<leader>gp` | Preview hunk |
+| `<leader>gb` | Blame de la línea |
+| `<leader>gd` | Diff del hunk |
+
+### Format
+
+`conform.nvim` formatea al guardar (`:w`): `prettierd` en JS/TS/JSX/TSX/JSON/CSS/HTML, `ruff` en Python, `stylua` en Lua, `google-java-format` en Java. Los binarios los instala Mason solo; si alguno falta se usa el LSP como fallback. Ver estado con `:ConformInfo`.
 
 ### Screenshots (no `freeze`)
 
@@ -256,6 +272,9 @@ Select with `<CR>`, cancel with `<Esc>`. The choice lasts for the session; to ch
 | `jdtls` | Java (via nvim-java, filetype only) |
 | `java-test` / `java-debug-adapter` | Java test + debug (via nvim-dap, `<leader>db/dc/do/di`) |
 | `google-java-format` | Java format (via conform.nvim, format on save) |
+| `prettierd` | JS/TS/JSX/TSX/JSON/CSS/HTML format (via conform.nvim, format on save, LSP fallback) |
+| `ruff` | Python format via `ruff_format` (via conform.nvim, format on save) |
+| `stylua` | Lua format (via conform.nvim, format on save) |
 
 ## Requirements
 

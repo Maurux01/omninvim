@@ -10,6 +10,9 @@ return {
           "java-test",
           "java-debug-adapter",
           "google-java-format",
+          "prettierd",
+          "stylua",
+          "ruff",
         },
       })
     end,
@@ -45,13 +48,30 @@ return {
       end
     end,
   },
-  -- Formato Java (google-java-format, fallback a jdtls).
+  -- Formato multi-lenguaje (conform.nvim, format on save).
+  -- prettierd/stylua/ruff los instala mason-tool-installer; si un
+  -- binario falta, se usa el LSP como fallback (lsp_format).
   {
     "stevearc/conform.nvim",
-    ft = { "java" },
+    ft = {
+      "java",
+      "javascript", "javascriptreact", "typescript", "typescriptreact",
+      "json", "jsonc", "css", "html",
+      "python", "lua",
+    },
     opts = {
       formatters_by_ft = {
         java = { "google-java-format", lsp_format = "fallback" },
+        javascript = { "prettierd", lsp_format = "fallback" },
+        javascriptreact = { "prettierd", lsp_format = "fallback" },
+        typescript = { "prettierd", lsp_format = "fallback" },
+        typescriptreact = { "prettierd", lsp_format = "fallback" },
+        json = { "prettierd", lsp_format = "fallback" },
+        jsonc = { "prettierd", lsp_format = "fallback" },
+        css = { "prettierd", lsp_format = "fallback" },
+        html = { "prettierd", lsp_format = "fallback" },
+        python = { "ruff_format" },
+        lua = { "stylua" },
       },
       format_on_save = { timeout_ms = 2000, lsp_format = "fallback" },
     },

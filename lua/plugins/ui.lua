@@ -86,7 +86,12 @@ return {
       require("lualine").setup({
         -- globalstatus=false + laststatus=2 (core/options): cada split
         -- dibuja su propio lualine; la activa a color, las inactivas tenues.
-        options = { theme = "auto", globalstatus = false },
+        -- El tree y el dashboard no llevan lualine (ahorra una línea y ruido).
+        options = {
+          theme = "auto",
+          globalstatus = false,
+          disabled_filetypes = { statusline = { "NvimTree", "alpha" } },
+        },
         sections = {
           lualine_c = {
             "filename",

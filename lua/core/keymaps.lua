@@ -6,6 +6,11 @@ vim.keymap.set("n", "<C-l>", "<cmd>NavigatorRight<CR>", { desc = "Window Right" 
 vim.keymap.set("n", "<C-j>", "<cmd>NavigatorDown<CR>", { desc = "Window Down" })
 vim.keymap.set("n", "<C-k>", "<cmd>NavigatorUp<CR>", { desc = "Window Up" })
 
+-- Cierre con fuerza: no preguntan por cambios sin guardar
+-- (el buffer modificado queda oculto, no se pierde).
+vim.keymap.set("n", "<C-w>c", "<cmd>close!<CR>", { desc = "Cerrar ventana (force)" })
+vim.keymap.set("n", "<C-w>o", "<cmd>only!<CR>", { desc = "Solo esta ventana (force)" })
+
 -- Terminal: <Esc> sale a Normal, <C-hjkl> navega ventanas.
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Terminal Normal Mode" })
 vim.keymap.set("t", "<C-h>", [[<C-\><C-n><cmd>NavigatorLeft<CR>]], { desc = "Window Left" })
