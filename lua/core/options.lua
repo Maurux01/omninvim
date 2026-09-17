@@ -1,7 +1,9 @@
 local opt = vim.opt
 
 opt.number = true
-opt.relativenumber = true
+opt.relativenumber = false
+opt.fillchars = { eob = " " }
+opt.cmdheight = 0
 opt.mouse = "a"
 opt.showmode = false
 opt.tabstop = 2

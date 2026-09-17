@@ -48,10 +48,10 @@ return {
           },
         },
       })
-      vim.lsp.config("sqls", { capabilities = capabilities })
+      
 
       require("mason-lspconfig").setup({
-        ensure_installed = { "vtsls", "tailwindcss", "html", "cssls", "pyright", "lua_ls", "sqls" },
+        ensure_installed = { "vtsls", "tailwindcss", "html", "cssls", "pyright", "lua_ls"},
         automatic_enable = false,
       })
 
@@ -62,7 +62,6 @@ return {
         "cssls",
         "pyright",
         "lua_ls",
-        "sqls",
       })
     end,
   },
