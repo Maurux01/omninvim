@@ -36,7 +36,18 @@ return {
 
   { "HiPhish/rainbow-delimiters.nvim", config = function() require("rainbow-delimiters.setup").setup() end },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false }, indent = { char = "│" } } },
-  { "sphamba/smear-cursor.nvim", config = function() require("smear_cursor").setup() end },
+  {
+    "sphamba/smear-cursor.nvim",
+    config = function()
+      require("smear_cursor").setup({
+        stiffness = 0.5,
+        trailing_stiffness = 0.35,
+        trailing_exponent = 2,
+        distance_stop_animating = 0.5,
+        hide_target_hack = true,
+      })
+    end,
+  },
   { "mawkler/modicator.nvim", config = function() require("modicator").setup() end },
   {
     "nvim-lualine/lualine.nvim",
