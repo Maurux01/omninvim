@@ -93,8 +93,12 @@ Inside the tree:
 
 ### Splits
 
+Create them with native keys, move between them with `Navigator.nvim`:
+
 | Keys | Action |
 |------|--------|
+| `<C-w>v` / `<C-w>s` | Vertical / horizontal split |
+| `<C-w>c` / `<C-w>o` | Close split / keep only current |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to left / down / up / right split |
 
 ### Yanky (yank history)
