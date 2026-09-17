@@ -34,6 +34,15 @@ return {
     config = function()
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+      -- gd/gD no son defaults de Neovim: se definen al adjuntar el LSP
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("SimplevimLspKeys", { clear = true }),
+        callback = function(event)
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = event.buf, desc = "Go to Definition" })
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = event.buf, desc = "Go to Declaration" })
+        end,
+      })
+
       vim.lsp.config("vtsls", { capabilities = capabilities })
       vim.lsp.config("tailwindcss", { capabilities = capabilities })
       vim.lsp.config("html", { capabilities = capabilities })

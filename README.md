@@ -128,7 +128,7 @@ Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the 
 |------|--------|
 | `<leader>sc` | Screenshot selection (`:Freeze`, needs the `freeze` CLI) |
 
-### LSP (Neovim 0.11 defaults)
+### LSP (buffer with active server; `gd`/`gD` defined by this config, rest are Neovim 0.11+ defaults)
 
 | Keys | Action |
 |------|--------|
