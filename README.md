@@ -15,6 +15,8 @@ A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/k
 - **Workflow**: Telescope, Trouble, Flash, Harpoon, Oil, Yanky (history), Genghis, Zen Mode, WakaTime
 - **Git**: `gitsigns` + `freeze-code.nvim` screenshots (`<leader>sc`, requires the `freeze` CLI)
 - **Statusline**: `lualine` + `bufferline` + `nvim-notify`
+- **Markdown in-buffer**: `render-markdown.nvim` renders `.md` beautifully, no browser needed
+- **Live server**: `live-preview.nvim` (`<leader>pv`) serves HTML with live reload
 
 ## Structure
 
@@ -29,6 +31,7 @@ lua/plugins/lsp.lua      Treesitter, Mason, blink.cmp, lspconfig, Java
 lua/plugins/workflow.lua Telescope, Trouble, Flash, Harpoon, Oil, Yanky
 lua/plugins/git.lua      gitsigns, freeze-code
 lua/plugins/explorer.lua nvim-tree (right side)
+lua/plugins/preview.lua  render-markdown, live-preview
 script.sh                Smart installer (Arch / Debian / Fedora)
 ```
 
@@ -108,6 +111,7 @@ Inside the tree:
 |------|--------|
 | `<leader>a` | Pin current file |
 | `<leader>h` | Visual menu with pinned files |
+| `<leader>H` | Unpin all files |
 | `<leader>1` – `<leader>4` | Jump to pinned file 1–4 |
 
 Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the slot of the current buffer.
@@ -127,6 +131,7 @@ Pinned slots show in the statusline as `󰐃 1○ 2● …` — `●` marks the 
 | Keys | Action |
 |------|--------|
 | `<leader>sc` | Screenshot selection (`:Freeze`, needs the `freeze` CLI) |
+| `<leader>pv` | Live preview current HTML file |
 
 ### LSP (buffer with active server; `gd`/`gD` defined by this config, rest are Neovim 0.11+ defaults)
 

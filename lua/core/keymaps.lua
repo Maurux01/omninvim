@@ -8,6 +8,7 @@ vim.keymap.set("n", "<C-k>", "<cmd>NavigatorUp<CR>", { desc = "Window Up" })
 
 vim.keymap.set("n", "<leader>a", function() require("harpoon"):list():add() end, { desc = "Harpoon Add" })
 vim.keymap.set("n", "<leader>h", function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end, { desc = "Harpoon Menu" })
+vim.keymap.set("n", "<leader>H", function() require("harpoon"):list():clear() end, { desc = "Harpoon Clear All" })
 vim.keymap.set("n", "<leader>1", function() require("harpoon"):list():select(1) end, { desc = "Harpoon 1" })
 vim.keymap.set("n", "<leader>2", function() require("harpoon"):list():select(2) end, { desc = "Harpoon 2" })
 vim.keymap.set("n", "<leader>3", function() require("harpoon"):list():select(3) end, { desc = "Harpoon 3" })
