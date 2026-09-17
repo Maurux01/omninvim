@@ -20,7 +20,12 @@ return {
     version = "*",
     dependencies = { "rafamadriz/friendly-snippets" },
     opts = {
-      keymap = { preset = "enter" },
+      keymap = {
+        preset = "enter",
+        ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
+      },
       appearance = { nerd_font_variant = "mono" },
       sources = { default = { "lsp", "path", "snippets", "buffer" } },
     },

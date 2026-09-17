@@ -21,7 +21,7 @@ vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save" })
 
 vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next Buffer" })
-vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Close Buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>bdelete!<CR>", { desc = "Close Buffer" })
 vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Ultimo Buffer" })
 
 vim.keymap.set("n", "<leader>th", function()

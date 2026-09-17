@@ -93,7 +93,7 @@ Inside the tree:
 | Keys | Action |
 |------|--------|
 | `<S-h>` / `<S-l>` | Buffer anterior / siguiente (ciclo con `bufferline`) |
-| `<leader>bd` | Cerrar buffer actual |
+| `<leader>bd` | Cerrar buffer actual (forzado con `!`, no pide guardar) |
 | `<leader><leader>` (doble espacio) | Saltar al último buffer visitado (alternar entre 2 archivos) |
 | `:b <nombre><Tab>` | Ir a un buffer por nombre (autocompleta) |
 
@@ -158,15 +158,15 @@ Al escribir aparece el menú de `blink.cmp` (LSP + snippets + buffer + rutas):
 
 | Keys | Action |
 |------|--------|
+| `<Tab>` / `<S-Tab>` | Siguiente / anterior sugerencia (si no hay menú, salta al siguiente / anterior hueco del snippet) |
 | `<C-n>` / `<C-p>` (o `<Down>` / `<Up>`) | Moverse a la siguiente / anterior sugerencia |
 | `<CR>` (Enter) | Aceptar la sugerencia resaltada |
 | `<C-e>` | Cerrar el menú sin aceptar |
 | `<C-Space>` | Forzar que aparezca el menú / ver documentación |
-| `<Tab>` / `<S-Tab>` | Saltar al siguiente / anterior hueco del snippet aceptado |
 | `<C-b>` / `<C-f>` | Subir / bajar en la documentación |
 | `<C-k>` | Ver/ocultar la firma de la función |
 
-> `<CR>` acepta lo resaltado; si no hay nada resaltado hace un Enter normal. El preset es `enter` (ver `keymap.preset` en `lua/plugins/lsp.lua`).
+> `<CR>` acepta lo resaltado; si no hay nada resaltado hace un Enter normal. Preset `enter` con `Tab`/`S-Tab` remapeados a `select_next`/`select_prev` (con fallback a `snippet_forward`/`snippet_backward`, ver `keymap` en `lua/plugins/lsp.lua`).
 
 ### LSP (buffer with active server; `gd`/`gD` defined by this config, rest are Neovim 0.11+ defaults)
 
