@@ -137,6 +137,23 @@ Inside the tree:
 | `gra` | Code action |
 | `gO` | Document symbols |
 
+## Themes
+
+Press `<leader>th` to open the theme picker (Telescope):
+
+| # | Theme | Variant |
+|---|-------|---------|
+| 1 | Catppuccin (default) | Frappe, transparent |
+| 2 | Rose Pine | Moon |
+| 3 | Tokyo Night | Night, transparent |
+| 4 | Gruvbox Material | Soft background |
+| 5 | Everforest | Soft background |
+| 6 | Nord | Transparent |
+| 7 | OneDark | Darker, transparent |
+| 8 | Kanagawa | Wave, transparent |
+
+Select with `<CR>`, cancel with `<Esc>`. The choice lasts for the session; to change the default, edit the `colorscheme` call in `lua/plugins/ui.lua`.
+
 ## LSP servers
 
 | Server | Language |
