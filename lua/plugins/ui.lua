@@ -82,7 +82,17 @@ return {
     end,
   },
   { "akinsho/bufferline.nvim", dependencies = "nvim-tree/nvim-web-devicons", config = function() require("bufferline")
-        .setup() end },
+        .setup({
+          options = {
+            -- El tree no es un buffer: reserva su espacio y no lo muestra como tab.
+            offsets = {
+              { filetype = "NvimTree", text = "File Explorer", highlight = "Directory", separator = true },
+            },
+            custom_filter = function(bufnr)
+              return vim.bo[bufnr].filetype ~= "NvimTree"
+            end,
+          },
+        }) end },
   { "rcarriga/nvim-notify", config = function()
     local notify = require("notify")
     vim.notify = notify

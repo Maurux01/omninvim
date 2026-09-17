@@ -64,6 +64,22 @@ return {
       })
       -- Desde el tree vuelve al buffer sin cerrarlo: <leader><Tab>,
       -- <BS> o <C-h>. Cierra el tree y vuelve con `q` / <leader>e.
+
+      -- Auto-cerrar: si NvimTree queda como única ventana, salir.
+      -- Así no queda el tree huérfano que obliga a hacer `:q!`.
+      vim.api.nvim_create_autocmd("BufEnter", {
+        nested = true,
+        callback = function()
+          local wins = vim.api.nvim_list_wins()
+          if #wins ~= 1 then
+            return
+          end
+          local ok, utils = pcall(require, "nvim-tree.utils")
+          if ok and utils.is_nvim_tree_buf() then
+            vim.cmd("quit")
+          end
+        end,
+      })
     end,
   },
 }

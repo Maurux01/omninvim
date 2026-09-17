@@ -21,7 +21,35 @@ vim.keymap.set("n", "<C-s>", "<cmd>w<CR>", { desc = "Save" })
 
 vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev Buffer" })
 vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next Buffer" })
-vim.keymap.set("n", "<leader>bd", "<cmd>bdelete!<CR>", { desc = "Close Buffer" })
+vim.keymap.set("n", "<leader>bd", function()
+  -- Cierre inteligente: NvimTree no cuenta como buffer.
+  -- Si es el último archivo real, cierra el tree también para no
+  -- dejar el tree huérfano (evita tener que hacer `:q!`).
+  local function real_bufs()
+    local t = {}
+    for _, b in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_valid(b) and vim.bo[b].buflisted then
+        local ft = vim.bo[b].filetype
+        if ft ~= "NvimTree" and ft ~= "alpha" and ft ~= "dashboard" and ft ~= "oil" then
+          t[#t + 1] = b
+        end
+      end
+    end
+    return t
+  end
+  if #real_bufs() <= 1 then
+    pcall(function() require("nvim-tree.api").tree.close() end)
+    vim.cmd("bdelete!")
+    -- Si queda dashboard/alpha úsalo, si no sal de Neovim.
+    if #vim.fn.getbufinfo({ buflisted = 1 }) == 0 then
+      if not pcall(vim.cmd, "Alpha") then
+        vim.cmd("quitall!")
+      end
+    end
+  else
+    vim.cmd("bdelete!")
+  end
+end, { desc = "Close Buffer" })
 vim.keymap.set("n", "<leader><leader>", "<C-^>", { desc = "Ultimo Buffer" })
 
 vim.keymap.set("n", "<leader>th", function()
