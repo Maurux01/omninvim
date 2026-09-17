@@ -8,7 +8,7 @@ A fullstack Neovim setup built on [kickstart.nvim](https://github.com/nvim-lua/k
 - **Floating command line**: `noice.nvim` popup (`:` floats centered, `lualine` stays glued to the bottom)
 - **Real line numbers**: absolute numbers, no relative mode
 - **No `~` filler**: clean end-of-buffer via `fillchars`
-- **12 themes on demand**: Catppuccin Frappe (default), Rose Pine Moon, Tokyo Night, Gruvbox Material, Everforest, Nord, OneDark, Kanagawa, Dracula, Cyberdream, Eldritch, Oxocarbon — all dark, switch with `<leader>th`
+- **25 themes on demand**: Catppuccin Frappe (default), Rose Pine Moon, Tokyo Night, Gruvbox Material, Everforest, Nord, OneDark, Kanagawa, Dracula, Cyberdream, Eldritch, Oxocarbon, Moonfly, Sonokai, Code Dark, VSCode, GitHub Dark, Nightfox, Material Darker, Nordic, Melange, Tokyo Dark, Ayu Dark, OneNord, Vesper — all dark, switch with `<leader>th`
 - **Completion**: `blink.cmp` with LSP, path, snippets and buffer sources
 - **LSP via Mason**: `vtsls`, `tailwindcss`, `html`, `cssls`, `pyright`, `lua_ls`, `bashls`, `jdtls` (Java) — no `sqls`
 - **Treesitter**: syntax + indent for JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua, Bash
@@ -163,6 +163,19 @@ Press `<leader>th` to open the theme picker (Telescope):
 | 10 | Cyberdream | Neon dark, transparent |
 | 11 | Eldritch | Neon dark |
 | 12 | Oxocarbon | Near-black (IBM Carbon) |
+| 13 | Moonfly | Dark, high contrast |
+| 14 | Sonokai | Dark, monochrome-friendly |
+| 15 | Code Dark | VS Code dark |
+| 16 | VSCode | VS Code dark+ |
+| 17 | GitHub Dark | GitHub dark |
+| 18 | Nightfox | Dark blue |
+| 19 | Material Darker | Material darker |
+| 20 | Nordic | Nord-based dark |
+| 21 | Melange | Warm dark |
+| 22 | Tokyo Dark | Dark navy |
+| 23 | Ayu Dark | Dark gray-yellow |
+| 24 | OneNord | Nord-based dark |
+| 25 | Vesper | Deep dark teal |
 
 Select with `<CR>`, cancel with `<Esc>`. The choice lasts for the session; to change the default, edit the `colorscheme` call in `lua/plugins/ui.lua`.
 
