@@ -21,8 +21,38 @@ return {
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = { scope = { enabled = false }, indent = { char = "│" } } },
   { "sphamba/smear-cursor.nvim", config = function() require("smear_cursor").setup() end },
   { "mawkler/modicator.nvim", config = function() require("modicator").setup() end },
-  { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = function() require("lualine")
-        .setup({ options = { theme = "auto" } }) end },
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons", "ThePrimeagen/harpoon" },
+    config = function()
+      -- Dots for Harpoon slots: ● = current buffer is pinned, ○ = other pins
+      local function harpoon_marks()
+        local ok, harpoon = pcall(require, "harpoon")
+        if not ok then return "" end
+        local list_ok, list = pcall(function() return harpoon:list() end)
+        if not list_ok or not list or not list.items or #list.items == 0 then
+          return ""
+        end
+        local cur = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p")
+        local parts = {}
+        for i, item in ipairs(list.items) do
+          if i > 9 then break end
+          local path = vim.fn.fnamemodify(item.value or "", ":p")
+          parts[#parts + 1] = (path ~= "" and path == cur) and (i .. "●") or (i .. "○")
+        end
+        return "󰐃 " .. table.concat(parts, " ")
+      end
+      require("lualine").setup({
+        options = { theme = "auto" },
+        sections = {
+          lualine_c = {
+            "filename",
+            { harpoon_marks, color = { fg = "#fab387" } },
+          },
+        },
+      })
+    end,
+  },
   { "akinsho/bufferline.nvim", dependencies = "nvim-tree/nvim-web-devicons", config = function() require("bufferline")
         .setup() end },
   { "rcarriga/nvim-notify", config = function() vim.notify = require("notify") end },
