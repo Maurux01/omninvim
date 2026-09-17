@@ -38,8 +38,8 @@ script.sh                Smart installer (Arch / Debian / Fedora)
 ## Installation
 
 ```bash
-git clone https://github.com/Maurux01/simplevim.git
-cd simplevim
+git clone https://github.com/Maurux01/omninvim.git
+cd omninvim
 ./script.sh
 ```
 

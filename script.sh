@@ -11,7 +11,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim"
-REPO_URL="${REPO_URL:-https://github.com/Maurux01/simplevim.git}"
+REPO_URL="${REPO_URL:-https://github.com/Maurux01/omninvim.git}"
 SOURCE_DIR=""
 TEMP_DIR=""
 WARNINGS=()
