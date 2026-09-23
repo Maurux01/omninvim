@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1e1e2e">
   <title>OMNINVIM — Full Stack nvim</title>
   <meta name="description" content="OmniNvim: una distro Neovim fullstack. 25 temas, LSP, Treesitter, Telescope, Git y live preview.">
+  <meta property="og:title" content="OMNINVIM — Full Stack nvim">
+  <meta property="og:description" content="Tu IDE full-stack dentro de la terminal: LSP real, 25 temas oscuros, Telescope, Git y live preview.">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+  <link rel="stylesheet" href="docs/css/main.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E%E2%97%88%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-<canvas id="stars"></canvas>
-<div class="glow glow-1"></div>
-<div class="glow glow-2"></div>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="glow glow-1" aria-hidden="true"></div>
+<div class="glow glow-2" aria-hidden="true"></div>
 
 <!-- NAV -->
 <header class="nav" id="nav">
@@ -24,7 +29,7 @@
       <span class="brand-text">OMNI<b>NVIM</b></span>
       <span class="brand-tag">fullstack</span>
     </a>
-    <nav class="nav-links" id="navLinks">
+    <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
       <a href="#features">Features</a>
       <a href="#stack">Stack</a>
       <a href="#temas">Temas</a>
@@ -32,10 +37,10 @@
       <a href="#instalar">Instalar</a>
     </nav>
     <div class="nav-actions">
-      <button class="theme-dot-btn" id="navThemeBtn" title="Cambiar tema">●</button>
-      <a class="btn btn-ghost" href="https://github.com/Maurux01/omninvim" target="_blank" rel="noopener">↗ GitHub</a>
+      <button type="button" class="theme-dot-btn" id="navThemeBtn" title="Cambiar tema" aria-label="Cambiar tema">●</button>
+      <a class="btn btn-ghost" href="https://github.com/Maurux01/omninvim" target="_blank" rel="noopener noreferrer">↗ GitHub</a>
       <a class="btn btn-primary" href="#instalar">Instalar</a>
-      <button class="burger" id="burger" aria-label="menu">≡</button>
+      <button type="button" class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">≡</button>
     </div>
   </div>
 </header>
@@ -71,11 +76,11 @@
         <!-- EDITOR MOCK -->
         <div class="editor reveal">
           <div class="editor-bar">
-            <div class="dots"><i></i><i></i><i></i></div>
-            <div class="tabs">
-              <button class="tab active" data-tab="ts">app.tsx</button>
-              <button class="tab" data-tab="py">api.py</button>
-              <button class="tab" data-tab="java">Main.java</button>
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="tabs" role="tablist" aria-label="Archivos de ejemplo">
+              <button type="button" class="tab active" data-tab="ts" role="tab" aria-selected="true">app.tsx</button>
+              <button type="button" class="tab" data-tab="py" role="tab" aria-selected="false">api.py</button>
+              <button type="button" class="tab" data-tab="java" role="tab" aria-selected="false">Main.java</button>
             </div>
             <div class="editor-status"> main ●</div>
           </div>
@@ -112,7 +117,7 @@
 <span class="ln">6</span>  }
 <span class="ln">7</span>}</code></pre>
               <!-- floating noice cmd -->
-              <div class="noice">
+              <div class="noice" aria-hidden="true">
                 <span class="noice-prompt">:</span>
                 <span id="typed"></span><span class="typing-caret">▊</span>
               </div>
@@ -149,7 +154,7 @@
     </div>
 
     <div class="marquee-wrap">
-      <div class="marquee" id="marquee">
+      <div class="marquee" id="marquee" aria-hidden="true">
         <span>TypeScript</span><i>◆</i><span>TailwindCSS</span><i>◆</i><span>React / TSX</span><i>◆</i><span>Python + Ruff</span><i>◆</i><span>Java + JDTLS</span><i>◆</i><span>Lua</span><i>◆</i><span>Bash</span><i>◆</i><span>HTML / CSS</span><i>◆</i><span>SQL</span><i>◆</i><span>JSON</span><i>◆</i>
       </div>
     </div>
@@ -203,9 +208,9 @@
         <h2>Un servidor<br>para cada capa</h2>
         <p class="lead">Mason los instala por ti. Treesitter colorea JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua y Bash.</p>
         <div class="install-mini">
-          <span>$</span><code>:Mason</code><button class="copy" data-copy=":Mason">copiar</button>
-          <span>$</span><code>:Lazy</code><button class="copy" data-copy=":Lazy">copiar</button>
-          <span>$</span><code>:ConformInfo</code><button class="copy" data-copy=":ConformInfo">copiar</button>
+          <span>$</span><code>:Mason</code><button type="button" class="copy" data-copy=":Mason">copiar</button>
+          <span>$</span><code>:Lazy</code><button type="button" class="copy" data-copy=":Lazy">copiar</button>
+          <span>$</span><code>:ConformInfo</code><button type="button" class="copy" data-copy=":ConformInfo">copiar</button>
         </div>
       </div>
       <div class="stack-table reveal">
@@ -229,7 +234,7 @@
       <p class="lead">Prueba el switcher en vivo — esta página cambia de tema igual que OmniNvim con Telescope. Por defecto: <b>Catppuccin Frappe</b>.</p>
       <div class="theme-picker reveal" id="themePicker"></div>
       <div class="theme-demo reveal">
-        <div class="td-bar"><i></i><i></i><i></i><span id="themeName">catppuccin · frappe</span></div>
+        <div class="td-bar" aria-hidden="true"><i></i><i></i><i></i><span id="themeName">catppuccin · frappe</span></div>
         <pre><code><span class="cm">-- lua/plugins/ui.lua → colorscheme</span>
 <span class="kw">vim.cmd</span>.<span class="fn">colorscheme</span>(<span class="str" id="themeCode">"catppuccin-frappe"</span>)
 <span class="cm">-- transparente, borde naranja activo, lualine por split</span></code></pre>
@@ -244,16 +249,17 @@
       <p class="eyebrow">⌨ keymaps</p>
       <h2>Memoriza 10. Domina 60.</h2>
       <div class="km-controls">
-        <input id="kmSearch" type="search" placeholder="Filtrar… prueba con 'buffer', 'git', 'split' o 'theme'">
-        <div class="km-tabs" id="kmTabs">
-          <button class="active" data-cat="all">todos</button>
-          <button data-cat="general">general</button>
-          <button data-cat="files">archivos</button>
-          <button data-cat="git">git</button>
-          <button data-cat="lsp">lsp</button>
+        <label class="sr-only" for="kmSearch">Filtrar keymaps</label>
+        <input id="kmSearch" type="search" placeholder="Filtrar… prueba con 'buffer', 'git', 'split' o 'theme'" aria-label="Filtrar keymaps">
+        <div class="km-tabs" id="kmTabs" role="group" aria-label="Categorías de keymaps">
+          <button type="button" class="active" data-cat="all">todos</button>
+          <button type="button" data-cat="general">general</button>
+          <button type="button" data-cat="files">archivos</button>
+          <button type="button" data-cat="git">git</button>
+          <button type="button" data-cat="lsp">lsp</button>
         </div>
       </div>
-      <div class="km-grid" id="kmGrid"></div>
+      <div class="km-grid" id="kmGrid" aria-live="polite"></div>
     </div>
   </section>
 
@@ -273,9 +279,7 @@
         </div>
       </div>
       <div class="term reveal">
-        <div class="term-bar"><i></i><i></i><i></i><span>zsh — omninvim</span><button class="copy" data-copy="git clone https://github.com/Maurux01/omninvim.git
-cd omninvim
-./script.sh">⧉ copiar</button></div>
+        <div class="term-bar"><span aria-hidden="true"><i></i><i></i><i></i></span><span>zsh — omninvim</span><button type="button" class="copy" data-copy="git clone https://github.com/Maurux01/omninvim.git&#10;cd omninvim&#10;./script.sh">⧉ copiar</button></div>
 <pre><code><span class="cm"># 1 · clonar</span>
 <span class="prompt">$</span> git clone https://github.com/Maurux01/omninvim.git
 <span class="prompt">$</span> cd omninvim
@@ -289,15 +293,15 @@ cd omninvim
       </div>
     </div>
   </section>
+</main>
 
   <footer>
     <div class="container foot">
-      <div class="brand"><span class="brand-mark">◈</span><span class="brand-text">OMNI<b>NVIM</b></span></div>
-      <p>Hecho con Neovim + café por <a href="https://github.com/Maurux01" target="_blank" rel="noopener">maurux01</a> · kickstart.nvim ideas · Lazy.nvim · <a href="#top">volver arriba ↑</a></p>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">◈</span><span class="brand-text">OMNI<b>NVIM</b></span></div>
+      <p>Hecho con Neovim + café por <a href="https://github.com/Maurux01" target="_blank" rel="noopener noreferrer">maurux01</a> · kickstart.nvim ideas · Lazy.nvim · <a href="#top">volver arriba ↑</a></p>
     </div>
   </footer>
-</main>
 
-<script src="../js/main.js"></script>
+<script src="docs/js/main.js" defer></script>
 </body>
 </html>

@@ -47,8 +47,9 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 
 /* ---------- editor tabs ---------- */
 $$('.tab').forEach(btn => btn.addEventListener('click', () => {
-  $$('.tab').forEach(b => b.classList.remove('active'));
+  $$('.tab').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
   btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
   $$('.code').forEach(c => c.classList.remove('active'));
   $('#code-' + btn.dataset.tab).classList.add('active');
 }));
@@ -178,7 +179,11 @@ $$('.copy').forEach(b => b.addEventListener('click', async () => {
 }));
 
 /* ---------- mobile nav + active link ---------- */
-$('#burger').onclick = () => $('#navLinks').classList.toggle('open');
+$('#burger').onclick = () => {
+  const nav = $('#navLinks');
+  nav.classList.toggle('open');
+  $('#burger').setAttribute('aria-expanded', nav.classList.contains('open') ? 'true' : 'false');
+};
 $$('#navLinks a').forEach(a => a.addEventListener('click', () => $('#navLinks').classList.remove('open')));
 (() => {
   const links = $$('#navLinks a');
