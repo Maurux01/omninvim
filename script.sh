@@ -1,5 +1,5 @@
 #!/bin/bash
-# simplevim installer:
+# omnivim installer:
 #  1. actualiza el sistema
 #  2. verifica que existe; solo instala lo que falta (incluye nvim si falta)
 #  3. copia los archivos del repo a la carpeta default (~/.config/nvim)

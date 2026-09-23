@@ -1,12 +1,303 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <link href="css/main.css" rel="stylesheet">
-  </head>
-  <body>
-  
-  </body>
+<html lang="es" data-theme="frappe">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OMNINVIM — Full Stack Vision</title>
+  <meta name="description" content="OmniNvim: una distro Neovim fullstack. 25 temas, LSP, Treesitter, Telescope, Git y live preview.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-mark">◈</span>
+      <span class="brand-text">OMNI<b>NVIM</b></span>
+      <span class="brand-tag">fullstack</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#features">Features</a>
+      <a href="#stack">Stack</a>
+      <a href="#temas">Temas</a>
+      <a href="#keymaps">Keymaps</a>
+      <a href="#instalar">Instalar</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-dot-btn" id="navThemeBtn" title="Cambiar tema">●</button>
+      <a class="btn btn-ghost" href="https://github.com/Maurux01/omninvim" target="_blank" rel="noopener">↗ GitHub</a>
+      <a class="btn btn-primary" href="#instalar">Instalar</a>
+      <button class="burger" id="burger" aria-label="menu">≡</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="pill"><span class="pulse"></span> Neovim 0.11.5+ · Lazy.nvim · kickstart-based · v2.0</div>
+        <h1 class="hero-title">
+          <span class="omni">O M N I</span>
+          <span class="vim-line">NVIM<span class="cursor">▊</span></span>
+        </h1>
+        <p class="hero-sub">
+          Tu IDE <b>full-stack</b> dentro de la terminal.
+          TypeScript, Tailwind, Python, Java, Lua y Bash — con
+          <b>LSP real</b>, autocompletado, formateo al guardar y <b>25 temas oscuros</b>.
+        </p>
+        <div class="hero-cta">
+          <a href="#instalar" class="btn btn-primary btn-lg">⚡ Instalar en 1 comando</a>
+          <a href="#features" class="btn btn-ghost btn-lg">Ver qué incluye ↓</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><span class="stat-num" data-count="25">0</span><span class="stat-label">temas dark</span></div>
+          <div class="stat"><span class="stat-num" data-count="8">0</span><span class="stat-label">LSP servers</span></div>
+          <div class="stat"><span class="stat-num" data-count="12">0</span><span class="stat-label">plugins workflow</span></div>
+          <div class="stat"><span class="stat-num" data-count="100">0</span><span class="stat-label">% keyboard</span></div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <!-- EDITOR MOCK -->
+        <div class="editor reveal">
+          <div class="editor-bar">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <div class="tabs">
+              <button class="tab active" data-tab="ts">app.tsx</button>
+              <button class="tab" data-tab="py">api.py</button>
+              <button class="tab" data-tab="java">Main.java</button>
+            </div>
+            <div class="editor-status"> main ●</div>
+          </div>
+          <div class="editor-body">
+            <div class="code-pane">
+              <pre class="code active" id="code-ts"><code><span class="ln">1</span><span class="kw">import</span> { useState } <span class="kw">from</span> <span class="str">"react"</span>;
+<span class="ln">2</span>
+<span class="ln">3</span><span class="kw">export function</span> <span class="fn">Hero</span>() {
+<span class="ln">4</span>  <span class="kw">const</span> [theme, setTheme] = <span class="fn">useState</span>(<span class="str">"frappe"</span>);
+<span class="ln">5</span>  <span class="kw">return</span> (
+<span class="ln">6</span>    &lt;<span class="tag">main</span> <span class="attr">className</span>=<span class="str">"tailwind"</span>&gt;
+<span class="ln">7</span>      &lt;<span class="tag">h1</span>&gt;OmniNvim fullstack&lt;/<span class="tag">h1</span>&gt;
+<span class="ln">8</span>      &lt;<span class="tag">button</span> <span class="attr">onClick</span>={() =&gt; <span class="fn">setTheme</span>(<span class="str">"tokyonight"</span>)}&gt;
+<span class="ln">9</span>        &lt;Space&gt;th <span class="cm">-- 25 temas</span>
+<span class="ln">10</span>      &lt;/<span class="tag">button</span>&gt;
+<span class="ln">11</span>    &lt;/<span class="tag">main</span>&gt;
+<span class="ln">12</span>  );
+<span class="ln">13</span>}</code></pre>
+              <pre class="code" id="code-py"><code><span class="ln">1</span><span class="kw">from</span> fastapi <span class="kw">import</span> FastAPI
+<span class="ln">2</span>
+<span class="ln">3</span>app = <span class="fn">FastAPI</span>()
+<span class="ln">4</span>
+<span class="ln">5</span><span class="cm"># pyright + ruff_format on save :w</span>
+<span class="ln">6</span>@app.<span class="fn">get</span>(<span class="str">"/health"</span>)
+<span class="ln">7</span><span class="kw">async def</span> <span class="fn">health</span>():
+<span class="ln">8</span>    <span class="kw">return</span> {<span class="str">"omni"</span>: <span class="str">"ready"</span>, <span class="str">"lsp"</span>: <span class="str">"pyright ●"</span>}
+<span class="ln">9</span>
+<span class="ln">10</span><span class="cm"># gd → definición · K → docs · grn → rename</span></code></pre>
+              <pre class="code" id="code-java"><code><span class="ln">1</span><span class="kw">public class</span> <span class="fn">Main</span> {
+<span class="ln">2</span>  <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+<span class="ln">3</span>    System.out.<span class="fn">println</span>(<span class="str">"jdtls + dap + test ●"</span>);
+<span class="ln">4</span>    <span class="cm">// &lt;leader&gt;db dc do di → debug</span>
+<span class="ln">5</span>    <span class="cm">// google-java-format on :w</span>
+<span class="ln">6</span>  }
+<span class="ln">7</span>}</code></pre>
+              <!-- floating noice cmd -->
+              <div class="noice">
+                <span class="noice-prompt">:</span>
+                <span id="typed"></span><span class="typing-caret">▊</span>
+              </div>
+            </div>
+            <aside class="tree">
+              <div class="tree-title">󰙅 nvim-tree <span>right</span></div>
+              <ul>
+                <li class="dir">▾ app/</li>
+                <li class="f active">├─ app.tsx ●</li>
+                <li class="f">├─ globals.css</li>
+                <li class="dir">▾ api/</li>
+                <li class="f">├─ api.py</li>
+                <li class="f">├─ Main.java</li>
+                <li class="f">└─ README.md ⏺</li>
+              </ul>
+              <div class="tree-foot">q close · a create · r rename</div>
+            </aside>
+          </div>
+          <div class="lualine">
+            <span class="mode">● NORMAL</span>
+            <span>󰐃 1● 2○ 3○ 4○</span>
+            <span class="hide-m"> main +3 ~1</span>
+            <span class="hide-m">pyright · vtsls · tailwindcss</span>
+            <span>lp: utf-8 ⏷ 42:7</span>
+          </div>
+        </div>
+        <div class="hero-hints">
+          <span><kbd>Space</kbd> leader</span>
+          <span><kbd>Space</kbd>+<kbd>e</kbd> explorer</span>
+          <span><kbd>Space</kbd>+<kbd>t h</kbd> temas</span>
+          <span><kbd>s</kbd> flash jump</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee-wrap">
+      <div class="marquee" id="marquee">
+        <span>TypeScript</span><i>◆</i><span>TailwindCSS</span><i>◆</i><span>React / TSX</span><i>◆</i><span>Python + Ruff</span><i>◆</i><span>Java + JDTLS</span><i>◆</i><span>Lua</span><i>◆</i><span>Bash</span><i>◆</i><span>HTML / CSS</span><i>◆</i><span>SQL</span><i>◆</i><span>JSON</span><i>◆</i>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="section vision">
+    <div class="container">
+      <p class="eyebrow">✦ la visión full-stack</p>
+      <h2>Un solo editor. <span class="grad">Todo el stack.</span></h2>
+      <p class="lead">OmniNvim nace de kickstart.nvim + Lazy.nvim con una idea simple: que el frontend, el backend y el sistema vivan en el mismo flujo — sin salir del teclado, sin popups que estorban, sin configs de 2000 líneas que nadie entiende.</p>
+      <div class="vision-grid">
+        <div class="v-card reveal"><div class="v-icon">⌨️</div><h3>Keyboard-first</h3><p>Leader en <kbd>Space</kbd>, splits con <kbd>Ctrl-hjkl</kbd>, terminal que se rinde con <kbd>Esc</kbd>. Todo a un keymap de distancia.</p></div>
+        <div class="v-card reveal"><div class="v-icon">⚡</div><h3>Rápido y limpio</h3><p>Sin <code>~</code> basura, números reales, lualine pegado abajo y comandos flotantes con noice.nvim.</p></div>
+        <div class="v-card reveal"><div class="v-icon">🎨</div><h3>Bonito de verdad</h3><p>25 temas oscuros, borde naranja en la ventana activa, bufferline, notify y dashboard OMNI centrado.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="eyebrow">◈ features</p>
+      <h2>Todo lo que un full-stack necesita</h2>
+      <div class="bento">
+        <article class="card span-7 reveal">
+          <div class="card-top"><span class="chip">LSP · Mason</span><span class="live">● active</span></div>
+          <h3>Autocompletado y LSP que sí funcionan</h3>
+          <p><code>blink.cmp</code> + snippets + paths + buffers. Servidores: <b>vtsls, tailwindcss, html, cssls, pyright, lua_ls, bashls, jdtls</b>.</p>
+          <div class="mini-keys"><span><kbd>gd</kbd> definición</span><span><kbd>K</kbd> hover</span><span><kbd>grn</kbd> rename</span><span><kbd>gra</kbd> action</span><span><kbd>Tab</kbd> aceptar</span></div>
+        </article>
+        <article class="card span-5 reveal">
+          <div class="card-top"><span class="chip">format on save</span><span class="live">● :w</span></div>
+          <h3>Guarda y se formatea solo</h3>
+          <p><code>conform.nvim</code>: prettierd para JS/TS/CSS/HTML/JSON, ruff para Python, stylua para Lua, google-java-format para Java.</p>
+        </article>
+        <article class="card span-4 reveal"><div class="card-top"><span class="chip">explorer</span></div><h3>🌳 Árbol a la derecha</h3><p>nvim-tree que sigue tu buffer + Oil como buffer (<kbd>-</kbd>). El árbol ya no roba el foco.</p><div class="mini-keys"><span><kbd>Sp+e</kbd></span><span><kbd>-</kbd> oil</span></div></article>
+        <article class="card span-4 reveal"><div class="card-top"><span class="chip">workflow</span></div><h3>🔭 Telescope + Harpoon + Flash</h3><p>Busca archivos, fija 4 archivos con Harpoon, salta con Flash, historial de yanks con Yanky.</p><div class="mini-keys"><span><kbd>Sp+a</kbd> pin</span><span><kbd>Sp+1..4</kbd></span><span><kbd>s</kbd> flash</span></div></article>
+        <article class="card span-4 reveal"><div class="card-top"><span class="chip">git + shots</span></div><h3>⎇ Gitsigns + Ray.so</h3><p>Hunks con <kbd>]h</kbd>/<kbd>[h</kbd>, stage, preview y blame. Screenshots con <kbd>Sp+sc</kbd> sin binarios externos.</p></article>
+        <article class="card span-6 reveal"><div class="card-top"><span class="chip">web dev</span><span class="live">● :LivePreview</span></div><h3>🌐 Live server + Markdown</h3><p><kbd>Sp+pv</kbd> sirve tu HTML en <code>localhost:5500</code> con reload. Markdown renderizado dentro del buffer.</p></article>
+        <article class="card span-6 reveal"><div class="card-top"><span class="chip">editing</span></div><h3>⌁ Autopairs + Autotag</h3><p>Escribe <code>{ [ ( " &lt;div&gt;</code> y se cierra solo. <kbd>Alt+e</kbd> envuelve la palabra actual.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="section" id="stack">
+    <div class="container two-col">
+      <div>
+        <p class="eyebrow">▣ stack lsp</p>
+        <h2>Un servidor<br>para cada capa</h2>
+        <p class="lead">Mason los instala por ti. Treesitter colorea JS/TS, HTML, CSS, Python, Java, SQL, JSON, Lua y Bash.</p>
+        <div class="install-mini">
+          <span>$</span><code>:Mason</code><button class="copy" data-copy=":Mason">copiar</button>
+          <span>$</span><code>:Lazy</code><button class="copy" data-copy=":Lazy">copiar</button>
+          <span>$</span><code>:ConformInfo</code><button class="copy" data-copy=":ConformInfo">copiar</button>
+        </div>
+      </div>
+      <div class="stack-table reveal">
+        <div class="srow head"><span>Server</span><span>Lenguaje</span><span>Estado</span></div>
+        <div class="srow"><span class="mono">vtsls</span><span>TypeScript / JS</span><span class="ok">● lsp</span></div>
+        <div class="srow"><span class="mono">tailwindcss</span><span>Tailwind CSS</span><span class="ok">● lsp</span></div>
+        <div class="srow"><span class="mono">html / cssls</span><span>HTML · CSS/SCSS</span><span class="ok">● lsp</span></div>
+        <div class="srow"><span class="mono">pyright</span><span>Python</span><span class="ok">● lsp</span></div>
+        <div class="srow"><span class="mono">jdtls</span><span>Java + DAP test/debug</span><span class="ok">● java</span></div>
+        <div class="srow"><span class="mono">lua_ls / bashls</span><span>Lua · Shell</span><span class="ok">● lsp</span></div>
+        <div class="srow"><span class="mono">prettierd · ruff · stylua</span><span>Formatters on save</span><span class="warn">● conform</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMAS -->
+  <section class="section" id="temas">
+    <div class="container">
+      <p class="eyebrow">◐ 25 temas oscuros</p>
+      <h2>Pulsa <kbd>Space</kbd> <kbd>t</kbd> <kbd>h</kbd> y cambia de mundo</h2>
+      <p class="lead">Prueba el switcher en vivo — esta página cambia de tema igual que OmniNvim con Telescope. Por defecto: <b>Catppuccin Frappe</b>.</p>
+      <div class="theme-picker reveal" id="themePicker"></div>
+      <div class="theme-demo reveal">
+        <div class="td-bar"><i></i><i></i><i></i><span id="themeName">catppuccin · frappe</span></div>
+        <pre><code><span class="cm">-- lua/plugins/ui.lua → colorscheme</span>
+<span class="kw">vim.cmd</span>.<span class="fn">colorscheme</span>(<span class="str" id="themeCode">"catppuccin-frappe"</span>)
+<span class="cm">-- transparente, borde naranja activo, lualine por split</span></code></pre>
+        <div class="td-row"><span class="td-chip">bufferline ▸ app.tsx ●</span><span class="td-chip">lualine ▸ NORMAL</span><span class="td-chip">noice ▸ : flota</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYMAPS -->
+  <section class="section" id="keymaps">
+    <div class="container">
+      <p class="eyebrow">⌨ keymaps</p>
+      <h2>Memoriza 10. Domina 60.</h2>
+      <div class="km-controls">
+        <input id="kmSearch" type="search" placeholder="Filtrar… prueba con 'buffer', 'git', 'split' o 'theme'">
+        <div class="km-tabs" id="kmTabs">
+          <button class="active" data-cat="all">todos</button>
+          <button data-cat="general">general</button>
+          <button data-cat="files">archivos</button>
+          <button data-cat="git">git</button>
+          <button data-cat="lsp">lsp</button>
+        </div>
+      </div>
+      <div class="km-grid" id="kmGrid"></div>
+    </div>
+  </section>
+
+  <!-- INSTALL -->
+  <section class="section" id="instalar">
+    <div class="container two-col">
+      <div>
+        <p class="eyebrow">↓ instalar</p>
+        <h2>De cero a full-stack en 3 pasos</h2>
+        <ol class="steps">
+          <li><b>Clona</b> el repo y entra a la carpeta.</li>
+          <li><b>Corre</b> <code>./script.sh</code> — solo instala lo que falta (nvim 0.11.5+, rg, fd, node, servers, parsers) y respalda tu config vieja.</li>
+          <li><b>Abre</b> <code>nvim</code> y verifica con <code>:Lazy</code> y <code>:Mason</code>.</li>
+        </ol>
+        <div class="reqs">
+          <span>git</span><span>rg</span><span>fd</span><span>node</span><span>npm</span><span>python3</span><span>tree-sitter ≥0.26</span>
+        </div>
+      </div>
+      <div class="term reveal">
+        <div class="term-bar"><i></i><i></i><i></i><span>zsh — omninvim</span><button class="copy" data-copy="git clone https://github.com/Maurux01/omninvim.git
+cd omninvim
+./script.sh">⧉ copiar</button></div>
+<pre><code><span class="cm"># 1 · clonar</span>
+<span class="prompt">$</span> git clone https://github.com/Maurux01/omninvim.git
+<span class="prompt">$</span> cd omninvim
+<span class="cm"># 2 · installer inteligente (Arch / Debian / Fedora)</span>
+<span class="prompt">$</span> ./script.sh <span class="ok">✔ backup ~/.config/nvim ✔ sync</span>
+<span class="cm"># 3 · abrir y verificar</span>
+<span class="prompt">$</span> nvim <span class="cm">→ :Lazy → :Mason → &lt;Space&gt;th 🎨</span></code></pre>
+        <div class="filetree">
+          <span>init.lua</span><span>lua/core/options</span><span>lua/core/keymaps</span><span>lua/plugins/ui · lsp · java</span><span>lua/plugins/workflow · git · explorer</span><span>script.sh</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot">
+      <div class="brand"><span class="brand-mark">◈</span><span class="brand-text">OMNI<b>NVIM</b></span></div>
+      <p>Hecho con Neovim + café por <a href="https://github.com/Maurux01" target="_blank" rel="noopener">maurux01</a> · kickstart.nvim ideas · Lazy.nvim · <a href="#top">volver arriba ↑</a></p>
+    </div>
+  </footer>
+</main>
+
+<script src="../js/main.js"></script>
+</body>
 </html>
